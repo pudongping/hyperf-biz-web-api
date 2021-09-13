@@ -15,9 +15,13 @@ use Hyperf\Di\Annotation\Inject;
 use Hyperf\HttpServer\Contract\RequestInterface;
 use Hyperf\HttpServer\Contract\ResponseInterface;
 use Psr\Container\ContainerInterface;
+use App\Traits\ResponseTrait;
 
 abstract class AbstractController
 {
+
+    use ResponseTrait;
+
     /**
      * @Inject
      * @var ContainerInterface

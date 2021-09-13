@@ -12,9 +12,12 @@ declare(strict_types=1);
 return [
     'default' => [
         'handler' => [
-            'class' => Monolog\Handler\StreamHandler::class,
+            // 'class' => Monolog\Handler\StreamHandler::class,
+            'class' => Monolog\Handler\RotatingFileHandler::class,  // 日志文件按照日期轮转
             'constructor' => [
-                'stream' => BASE_PATH . '/runtime/logs/hyperf.log',
+                // 'stream' => BASE_PATH . '/runtime/logs/hyperf.log',
+                'filename' => BASE_PATH . '/runtime/logs/hyperf.log',
+                'maxFiles' => 14,  // 最多只记录 14 天前的日志
                 'level' => Monolog\Logger::DEBUG,
             ],
         ],

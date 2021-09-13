@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e2bd73d85078e38acea8fc101f5a05a6",
+    "content-hash": "b688cc5a7f57ee9bd581b5f1c33f4ee4",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -345,6 +345,80 @@
                 }
             ],
             "time": "2020-05-25T17:44:05+00:00"
+        },
+        {
+            "name": "egulias/email-validator",
+            "version": "3.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/egulias/EmailValidator.git",
+                "reference": "c81f18a3efb941d8c4d2e025f6183b5c6d697307"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/egulias/EmailValidator/zipball/c81f18a3efb941d8c4d2e025f6183b5c6d697307",
+                "reference": "c81f18a3efb941d8c4d2e025f6183b5c6d697307",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "doctrine/lexer": "^1.2",
+                "php": ">=7.2",
+                "symfony/polyfill-intl-idn": "^1.15"
+            },
+            "require-dev": {
+                "php-coveralls/php-coveralls": "^2.2",
+                "phpunit/phpunit": "^8.5.8|^9.3.3",
+                "vimeo/psalm": "^4"
+            },
+            "suggest": {
+                "ext-intl": "PHP Internationalization Libraries are required to use the SpoofChecking validation"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Egulias\\EmailValidator\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Eduardo Gulias Davis"
+                }
+            ],
+            "description": "A library for validating emails against several RFCs",
+            "homepage": "https://github.com/egulias/EmailValidator",
+            "keywords": [
+                "email",
+                "emailvalidation",
+                "emailvalidator",
+                "validation",
+                "validator"
+            ],
+            "support": {
+                "issues": "https://github.com/egulias/EmailValidator/issues",
+                "source": "https://github.com/egulias/EmailValidator/tree/3.1.1"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/egulias",
+                    "type": "github"
+                }
+            ],
+            "time": "2021-04-01T18:37:14+00:00"
         },
         {
             "name": "elasticsearch/elasticsearch",
@@ -1181,6 +1255,67 @@
             "time": "2021-07-18T06:50:14+00:00"
         },
         {
+            "name": "hyperf/constants",
+            "version": "v2.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hyperf/constants.git",
+                "reference": "7568ff95958644d8c8143f6c534653930c3d23d2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hyperf/constants/zipball/7568ff95958644d8c8143f6c534653930c3d23d2",
+                "reference": "7568ff95958644d8c8143f6c534653930c3d23d2",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "hyperf/di": "~2.2.0",
+                "hyperf/utils": "~2.2.0",
+                "php": ">=7.2"
+            },
+            "suggest": {
+                "hyperf/translation": "Required to use translation."
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.2-dev"
+                },
+                "hyperf": {
+                    "config": "Hyperf\\Constants\\ConfigProvider"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Hyperf\\Constants\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A constants component for hyperf.",
+            "homepage": "https://hyperf.io",
+            "keywords": [
+                "constants",
+                "hyperf",
+                "php"
+            ],
+            "support": {
+                "docs": "https://hyperf.wiki",
+                "issues": "https://github.com/hyperf/hyperf/issues",
+                "pull-request": "https://github.com/hyperf/hyperf/pulls",
+                "source": "https://github.com/hyperf/hyperf"
+            },
+            "time": "2021-07-18T06:50:14+00:00"
+        },
+        {
             "name": "hyperf/contract",
             "version": "v2.2.0",
             "source": {
@@ -1232,6 +1367,65 @@
                 "source": "https://github.com/hyperf/hyperf"
             },
             "time": "2021-07-18T06:50:14+00:00"
+        },
+        {
+            "name": "hyperf/crontab",
+            "version": "v2.2.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hyperf/crontab.git",
+                "reference": "f91d9a773faf403797a009552f439b7edf28c6e9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hyperf/crontab/zipball/f91d9a773faf403797a009552f439b7edf28c6e9",
+                "reference": "f91d9a773faf403797a009552f439b7edf28c6e9",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "hyperf/utils": "~2.2.0",
+                "nesbot/carbon": "^2.0",
+                "php": ">=7.2"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.2-dev"
+                },
+                "hyperf": {
+                    "config": "Hyperf\\Crontab\\ConfigProvider"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Hyperf\\Crontab\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A crontab component for Hyperf.",
+            "homepage": "https://hyperf.io",
+            "keywords": [
+                "crontab",
+                "hyperf",
+                "php",
+                "swoole"
+            ],
+            "support": {
+                "docs": "https://hyperf.wiki",
+                "issues": "https://github.com/hyperf/hyperf/issues",
+                "pull-request": "https://github.com/hyperf/hyperf/pulls",
+                "source": "https://github.com/hyperf/hyperf"
+            },
+            "time": "2021-08-19T02:21:00+00:00"
         },
         {
             "name": "hyperf/database",
@@ -1294,6 +1488,65 @@
                 "source": "https://github.com/hyperf/hyperf"
             },
             "time": "2021-08-18T08:51:36+00:00"
+        },
+        {
+            "name": "hyperf/db",
+            "version": "v2.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hyperf/db.git",
+                "reference": "bd5da62af6673890d1e951e1610ae1d5ae0fc882"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hyperf/db/zipball/bd5da62af6673890d1e951e1610ae1d5ae0fc882",
+                "reference": "bd5da62af6673890d1e951e1610ae1d5ae0fc882",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "hyperf/config": "~2.2.0",
+                "hyperf/contract": "~2.2.0",
+                "hyperf/pool": "~2.2.0",
+                "hyperf/utils": "~2.2.0",
+                "php": ">=7.2",
+                "psr/container": "^1.0|^2.0"
+            },
+            "suggest": {
+                "ext-swoole": "Required to use Swoole Coroutine MySQL."
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.2-dev"
+                },
+                "hyperf": {
+                    "config": "Hyperf\\DB\\ConfigProvider"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Hyperf\\DB\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "keywords": [
+                "hyperf",
+                "php"
+            ],
+            "support": {
+                "issues": "https://github.com/hyperf/db/issues",
+                "source": "https://github.com/hyperf/db/tree/v2.2.1"
+            },
+            "time": "2021-07-20T05:46:13+00:00"
         },
         {
             "name": "hyperf/db-connection",
@@ -2167,6 +2420,69 @@
             "time": "2021-07-18T06:50:14+00:00"
         },
         {
+            "name": "hyperf/paginator",
+            "version": "v2.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hyperf/paginator.git",
+                "reference": "d884a12771710bce66da6ddb494f52bcbd870721"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hyperf/paginator/zipball/d884a12771710bce66da6ddb494f52bcbd870721",
+                "reference": "d884a12771710bce66da6ddb494f52bcbd870721",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "hyperf/contract": "~2.2.0",
+                "hyperf/utils": "~2.2.0",
+                "php": ">=7.2"
+            },
+            "suggest": {
+                "hyperf/event": "Reqiured to use PageResolverListener.",
+                "hyperf/framework": "Reqiured to use PageResolverListener.",
+                "hyperf/http-server": "Reqiured to use PageResolverListener."
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.2-dev"
+                },
+                "hyperf": {
+                    "config": "Hyperf\\Paginator\\ConfigProvider"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Hyperf\\Paginator\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A paginator component for hyperf.",
+            "homepage": "https://hyperf.io",
+            "keywords": [
+                "hyperf",
+                "paginator",
+                "php"
+            ],
+            "support": {
+                "docs": "https://hyperf.wiki",
+                "issues": "https://github.com/hyperf/hyperf/issues",
+                "pull-request": "https://github.com/hyperf/hyperf/pulls",
+                "source": "https://github.com/hyperf/hyperf"
+            },
+            "time": "2021-07-18T06:50:14+00:00"
+        },
+        {
             "name": "hyperf/pool",
             "version": "v2.2.0",
             "source": {
@@ -2425,6 +2741,64 @@
             "time": "2021-07-18T06:50:14+00:00"
         },
         {
+            "name": "hyperf/translation",
+            "version": "v2.2.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hyperf/translation.git",
+                "reference": "1e9cff0d8b4b3fcfc06c1adec1927125db9c06a8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hyperf/translation/zipball/1e9cff0d8b4b3fcfc06c1adec1927125db9c06a8",
+                "reference": "1e9cff0d8b4b3fcfc06c1adec1927125db9c06a8",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "hyperf/contract": "~2.2.0",
+                "hyperf/utils": "~2.2.0",
+                "php": ">=7.2",
+                "psr/container": "^1.0|^2.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.2-dev"
+                },
+                "hyperf": {
+                    "config": "Hyperf\\Translation\\ConfigProvider"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/Functions.php"
+                ],
+                "psr-4": {
+                    "Hyperf\\Translation\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "An independent translation component, forked by illuminate/translation.",
+            "keywords": [
+                "hyperf",
+                "translation"
+            ],
+            "support": {
+                "issues": "https://github.com/hyperf/translation/issues",
+                "source": "https://github.com/hyperf/translation/tree/v2.2.5"
+            },
+            "time": "2021-08-23T03:09:11+00:00"
+        },
+        {
             "name": "hyperf/utils",
             "version": "v2.2.7",
             "source": {
@@ -2494,6 +2868,70 @@
                 "source": "https://github.com/hyperf/hyperf"
             },
             "time": "2021-09-06T02:20:50+00:00"
+        },
+        {
+            "name": "hyperf/validation",
+            "version": "v2.2.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hyperf/validation.git",
+                "reference": "5dd2f6bee4c36bf7f7f99b56bd8885d52dc4daea"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hyperf/validation/zipball/5dd2f6bee4c36bf7f7f99b56bd8885d52dc4daea",
+                "reference": "5dd2f6bee4c36bf7f7f99b56bd8885d52dc4daea",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "egulias/email-validator": "^3.0",
+                "hyperf/contract": "~2.2.0",
+                "hyperf/database": "~2.2.0",
+                "hyperf/di": "~2.2.0",
+                "hyperf/framework": "~2.2.0",
+                "hyperf/http-server": "~2.2.0",
+                "hyperf/translation": "~2.2.0",
+                "hyperf/utils": "~2.2.0",
+                "nesbot/carbon": "^2.21",
+                "php": ">=7.2",
+                "psr/container": "^1.0|^2.0",
+                "psr/event-dispatcher": "^1.0",
+                "psr/http-message": "^1.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.2-dev"
+                },
+                "hyperf": {
+                    "config": "Hyperf\\Validation\\ConfigProvider"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Hyperf\\Validation\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "hyperf validation",
+            "keywords": [
+                "hyperf",
+                "validation"
+            ],
+            "support": {
+                "issues": "https://github.com/hyperf/validation/issues",
+                "source": "https://github.com/hyperf/validation/tree/v2.2.7"
+            },
+            "time": "2021-09-04T16:00:43+00:00"
         },
         {
             "name": "laminas/laminas-mime",
@@ -4182,6 +4620,99 @@
             "time": "2021-05-27T12:26:48+00:00"
         },
         {
+            "name": "symfony/polyfill-intl-idn",
+            "version": "v1.23.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/polyfill-intl-idn.git",
+                "reference": "65bd267525e82759e7d8c4e8ceea44f398838e65"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/polyfill-intl-idn/zipball/65bd267525e82759e7d8c4e8ceea44f398838e65",
+                "reference": "65bd267525e82759e7d8c4e8ceea44f398838e65",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "php": ">=7.1",
+                "symfony/polyfill-intl-normalizer": "^1.10",
+                "symfony/polyfill-php72": "^1.10"
+            },
+            "suggest": {
+                "ext-intl": "For best performance"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "1.23-dev"
+                },
+                "thanks": {
+                    "name": "symfony/polyfill",
+                    "url": "https://github.com/symfony/polyfill"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Polyfill\\Intl\\Idn\\": ""
+                },
+                "files": [
+                    "bootstrap.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Laurent Bassin",
+                    "email": "laurent@bassin.info"
+                },
+                {
+                    "name": "Trevor Rowbotham",
+                    "email": "trevor.rowbotham@pm.me"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony polyfill for intl's idn_to_ascii and idn_to_utf8 functions",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "compatibility",
+                "idn",
+                "intl",
+                "polyfill",
+                "portable",
+                "shim"
+            ],
+            "support": {
+                "source": "https://github.com/symfony/polyfill-intl-idn/tree/v1.23.0"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2021-05-27T09:27:20+00:00"
+        },
+        {
             "name": "symfony/polyfill-intl-normalizer",
             "version": "v1.23.0",
             "source": {
@@ -4356,6 +4887,88 @@
                 }
             ],
             "time": "2021-05-27T12:26:48+00:00"
+        },
+        {
+            "name": "symfony/polyfill-php72",
+            "version": "v1.23.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/polyfill-php72.git",
+                "reference": "9a142215a36a3888e30d0a9eeea9766764e96976"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/polyfill-php72/zipball/9a142215a36a3888e30d0a9eeea9766764e96976",
+                "reference": "9a142215a36a3888e30d0a9eeea9766764e96976",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "php": ">=7.1"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "1.23-dev"
+                },
+                "thanks": {
+                    "name": "symfony/polyfill",
+                    "url": "https://github.com/symfony/polyfill"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Polyfill\\Php72\\": ""
+                },
+                "files": [
+                    "bootstrap.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony polyfill backporting some PHP 7.2+ features to lower PHP versions",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "compatibility",
+                "polyfill",
+                "portable",
+                "shim"
+            ],
+            "support": {
+                "source": "https://github.com/symfony/polyfill-php72/tree/v1.23.0"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2021-05-27T09:17:38+00:00"
         },
         {
             "name": "symfony/polyfill-php73",
@@ -5433,6 +6046,62 @@
                 "source": "https://github.com/hyperf/testing/tree/v2.2.0"
             },
             "time": "2021-07-18T06:50:14+00:00"
+        },
+        {
+            "name": "hyperf/watcher",
+            "version": "v2.2.6.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hyperf/watcher.git",
+                "reference": "7ca5ef155498337023d7174c7d087b10f344897f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hyperf/watcher/zipball/7ca5ef155498337023d7174c7d087b10f344897f",
+                "reference": "7ca5ef155498337023d7174c7d087b10f344897f",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "ext-swoole": ">=4.5",
+                "hyperf/command": "~2.2.0",
+                "hyperf/di": "~2.2.0",
+                "hyperf/framework": "~2.2.0",
+                "php": ">=7.2"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.2-dev"
+                },
+                "hyperf": {
+                    "config": "Hyperf\\Watcher\\ConfigProvider"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Hyperf\\Watcher\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Hot reload watcher for Hyperf",
+            "keywords": [
+                "hyperf",
+                "php"
+            ],
+            "support": {
+                "issues": "https://github.com/hyperf/watcher/issues",
+                "source": "https://github.com/hyperf/watcher/tree/v2.2.6.1"
+            },
+            "time": "2021-08-30T06:47:00+00:00"
         },
         {
             "name": "mockery/mockery",
@@ -7969,88 +8638,6 @@
             "time": "2021-08-04T21:20:46+00:00"
         },
         {
-            "name": "symfony/polyfill-php72",
-            "version": "v1.23.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/polyfill-php72.git",
-                "reference": "9a142215a36a3888e30d0a9eeea9766764e96976"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-php72/zipball/9a142215a36a3888e30d0a9eeea9766764e96976",
-                "reference": "9a142215a36a3888e30d0a9eeea9766764e96976",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
-            },
-            "require": {
-                "php": ">=7.1"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-main": "1.23-dev"
-                },
-                "thanks": {
-                    "name": "symfony/polyfill",
-                    "url": "https://github.com/symfony/polyfill"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Polyfill\\Php72\\": ""
-                },
-                "files": [
-                    "bootstrap.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Nicolas Grekas",
-                    "email": "p@tchwork.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Symfony polyfill backporting some PHP 7.2+ features to lower PHP versions",
-            "homepage": "https://symfony.com",
-            "keywords": [
-                "compatibility",
-                "polyfill",
-                "portable",
-                "shim"
-            ],
-            "support": {
-                "source": "https://github.com/symfony/polyfill-php72/tree/v1.23.0"
-            },
-            "funding": [
-                {
-                    "url": "https://symfony.com/sponsor",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/fabpot",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
-                    "type": "tidelift"
-                }
-            ],
-            "time": "2021-05-27T09:17:38+00:00"
-        },
-        {
             "name": "symfony/polyfill-php81",
             "version": "v1.23.0",
             "source": {
@@ -8270,6 +8857,100 @@
                 }
             ],
             "time": "2021-07-10T08:58:57+00:00"
+        },
+        {
+            "name": "symfony/var-dumper",
+            "version": "v5.3.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/var-dumper.git",
+                "reference": "3ad5af4aed07d0a0201bbcfc42658fe6c5b2fb8f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/3ad5af4aed07d0a0201bbcfc42658fe6c5b2fb8f",
+                "reference": "3ad5af4aed07d0a0201bbcfc42658fe6c5b2fb8f",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "php": ">=7.2.5",
+                "symfony/polyfill-mbstring": "~1.0",
+                "symfony/polyfill-php80": "^1.16"
+            },
+            "conflict": {
+                "phpunit/phpunit": "<5.4.3",
+                "symfony/console": "<4.4"
+            },
+            "require-dev": {
+                "ext-iconv": "*",
+                "symfony/console": "^4.4|^5.0",
+                "symfony/process": "^4.4|^5.0",
+                "twig/twig": "^2.13|^3.0.4"
+            },
+            "suggest": {
+                "ext-iconv": "To convert non-UTF-8 strings to UTF-8 (or symfony/polyfill-iconv in case ext-iconv cannot be used).",
+                "ext-intl": "To show region name in time zone dump",
+                "symfony/console": "To use the ServerDumpCommand and/or the bin/var-dump-server script"
+            },
+            "bin": [
+                "Resources/bin/var-dump-server"
+            ],
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "Resources/functions/dump.php"
+                ],
+                "psr-4": {
+                    "Symfony\\Component\\VarDumper\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Provides mechanisms for walking through any arbitrary PHP variable",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "debug",
+                "dump"
+            ],
+            "support": {
+                "source": "https://github.com/symfony/var-dumper/tree/v5.3.7"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2021-08-04T23:19:25+00:00"
         },
         {
             "name": "theseer/tokenizer",

@@ -10,6 +10,7 @@ declare(strict_types=1);
  * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
  */
 return [
-    Hyperf\AsyncQueue\Process\ConsumerProcess::class,  // 配置异步消费进程
-    Hyperf\Crontab\Process\CrontabDispatcherProcess::class,  // 启动任务调度器进程
+    'locale' => env('LANGUAGE', 'zh_CN'),
+    'fallback_locale' => 'en',
+    'path' => BASE_PATH . '/storage/languages',
 ];
