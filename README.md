@@ -1,36 +1,55 @@
-# Introduction
+# 介绍
 
-This is a skeleton application using the Hyperf framework. This application is meant to be used as a starting place for those looking to get their feet wet with Hyperf Framework.
+本项目采用 [hyperf 2.2](https://hyperf.wiki/2.2/#/README) 框架。
 
-# Requirements
+## 服务器要求
 
-Hyperf has some requirements for the system environment, it can only run under Linux and Mac environment, but due to the development of Docker virtualization technology, Docker for Windows can also be used as the running environment under Windows.
+- PHP >= 7.4
+- 以下任一网络引擎
+    - Swoole PHP 扩展 >= 4.5，并关闭了 Short Name
+    - Swow PHP 扩展 (Beta)
+- JSON PHP 扩展
+- Pcntl PHP 扩展
+- OpenSSL PHP 扩展（如需要使用到 HTTPS）
+- PDO PHP 扩展 （如需要使用到 MySQL 客户端）
+- Redis PHP 扩展 （如需要使用到 Redis 客户端）
+- Protobuf PHP 扩展 （如需要使用到 gRPC 服务端或客户端）
 
-The various versions of Dockerfile have been prepared for you in the [hyperf/hyperf-docker](https://github.com/hyperf/hyperf-docker) project, or directly based on the already built [hyperf/hyperf](https://hub.docker.com/r/hyperf/hyperf) Image to run.
+## docker 下运行
 
-When you don't want to use Docker as the basis for your running environment, you need to make sure that your operating environment meets the following requirements:  
+```shell
 
- - PHP >= 7.3
- - Swoole PHP extension >= 4.5，and Disabled `Short Name`
- - OpenSSL PHP extension
- - JSON PHP extension
- - PDO PHP extension （If you need to use MySQL Client）
- - Redis PHP extension （If you need to use Redis Client）
- - Protobuf PHP extension （If you need to use gRPC Server of Client）
+docker run --name hyperf-project \
+-v /Users/pudongping/codes/hyperf-project:/hyperf-project \
+-p 9510:9510 \
+-p 9511:9511 -it \
+--privileged -u root \
+--entrypoint /bin/sh \
+hyperf/hyperf:7.4-alpine-v3.11-swoole
 
-# Installation using Composer
+# docker 容器内可能要添加阿里云 composer 镜像
+composer config -g repo.packagist composer https://mirrors.aliyun.com/composer
 
-The easiest way to create a new Hyperf project is to use Composer. If you don't have it already installed, then please install as per the documentation.
+```
 
-To create your new Hyperf project:
+## 启动项目
 
-$ composer create-project hyperf/hyperf-skeleton path/to/install
+```shell
 
-Once installed, you can run the server immediately using the command below.
+cd path/to/install
 
-$ cd path/to/install
-$ php bin/hyperf.php start
+php bin/hyperf.php start
 
-This will start the cli-server on port `9501`, and bind it to all network interfaces. You can then visit the site at `http://localhost:9501/`
+```
 
-which will bring up Hyperf default home page.
+## 目录规范
+
+1. 业务代码全部写在 `Services` 目录中
+2. `Request` 和 `Response` 只能在 `Controller` 中使用
+3. `response` 返回的 `code` 和 `message` 信息应全部在 `Constants` 目录下的 `ErrorCode.php` 文件中定义
+4. 请求数据的验证代码逻辑应统一放在 `Request` 目录下
+
+## 代码规范
+
+1. **必须**遵循 [PSR-4](https://learnku.com/docs/psr/psr-4-autoloader-meta/1610) 和 [PSR-12](https://learnku.com/docs/psr/psr-12-extended-coding-style-guide/5789) 规范
+2. **建议**遵循 SOLID 编码准则
