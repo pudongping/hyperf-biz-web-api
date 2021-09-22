@@ -31,9 +31,13 @@ class AuthMiddleware implements MiddlewareInterface
             'user_id' => 68,
         ];
 
-        $request = Context::get(ServerRequestInterface::class);
-        $request = $request->withAttribute('userInfo', $userInfo);
-        Context::set(ServerRequestInterface::class, $request);
+        $request = Context::override(ServerRequestInterface::class, function () use ($request, $userInfo) {
+            return $request->withAttribute('userInfo', $userInfo);
+        });
+
+        // $request = Context::get(ServerRequestInterface::class);
+        // $request = $request->withAttribute('userInfo', $userInfo);
+        // Context::set(ServerRequestInterface::class, $request);
 
         return $handler->handle($request);
     }
