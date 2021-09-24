@@ -1,5 +1,5 @@
 #!/bin/bash
-#server manager script
+#server manager script based on hyperf 2.2.0
 
 base_path=$(cd `dirname $0`; pwd)
 server_file="${base_path}/bin/hyperf.php"
