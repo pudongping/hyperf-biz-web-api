@@ -236,6 +236,28 @@ if (! function_exists('get_current_action')) {
     }
 }
 
+if (! function_exists('set_global_init_params')) {
+    /**
+     * 重新设置全局初始化参数（在一次请求生命周期中替换掉 App\Middleware\InitParamsMiddleware::class 中的定义）
+     *
+     * @param string $key
+     * @param null $value
+     * @return mixed|null
+     */
+    function set_global_init_params(string $key, $value = null)
+    {
+        $tempValueKey = config('app.context_key.temp_value');
+        if (! Context::has($tempValueKey)) return $value;
+        $contextData = Context::get($tempValueKey, []);
+
+        $override = array_merge($contextData, [
+            $key => $value
+        ]);
+
+        return Context::set($tempValueKey, $override);
+    }
+}
+
 if (! function_exists('get_global_init_params')) {
     /**
      * 获取初始化全局参数 （App\Middleware\InitParamsMiddleware::class 中定义）
