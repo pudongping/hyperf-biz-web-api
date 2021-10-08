@@ -1,10 +1,14 @@
 #!/bin/bash
-#server manager script based on hyperf 2.2.0
+#server manager script
 
 base_path=$(cd `dirname $0`; pwd)
 server_file="${base_path}/bin/hyperf.php"
 pid_path="${base_path}/runtime/hyperf.pid"
 php_path=$(which php)
+env_path="${base_path}/.env"
+runtime_container="${base_path}/runtime/container"
+
+cd $base_path
 
 function console_blue() {
     echo -e "\033[36m[ $1 ]\033[0m"
@@ -22,13 +26,13 @@ function console_yellow() {
     echo -e "\033[33m\033[01m[ $1 ]\033[0m"
 }
 
-if [[ ! -f ./.env ]]
+if [[ ! -f "$env_path" ]]
 then
     console_orangered 'You should copy the .env.example file and name it .env or create a new file and rename .env'
     exit 1
 fi
 
-source ./.env
+source "$env_path"
 
 project_name=${APP_NAME}
 
@@ -37,8 +41,6 @@ then
     console_orangered 'Please check if the PHP has been installed '
     exit 1
 fi
-
-cd $base_path
 
 function master_process_count() {
     if [[ -f "${pid_path}" ]];
@@ -98,13 +100,13 @@ function start() {
         exit 0
     fi
 
-    rm -rf ./runtime/container
+    rm -rf "$runtime_container"
 
     console_blue 'Starting now, please just a moment !'
     exec php "${server_file}" start >> /dev/null 2>&1 &
     sleep 1
 
-    console_yellow "Started successful !"
+    console_green "Started successful !"
     if [[ -f "${pid_path}" ]]
     then
         console_blue "Master pid is : `cat ${pid_path}` "
