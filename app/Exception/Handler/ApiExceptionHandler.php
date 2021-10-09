@@ -52,7 +52,7 @@ class ApiExceptionHandler extends ExceptionHandler
                 break;
         }
 
-        $msg = $msg ?: $throwable->getMessage() ?: ErrorCode::getMessage($code) ?: 'Whoops, No Error Data';
+        $msg = $msg ?: ErrorCode::getMessage($code) ?: $throwable->getMessage() ?: 'Whoops, No Error Data';
 
         // $errorLog = sprintf(
         //     "系统服务报错 ====> %s file ==> %s line ==> %s error message is ==> %s trace ==> %s",
