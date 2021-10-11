@@ -33,22 +33,24 @@ class ApiExceptionHandler extends ExceptionHandler
 
         switch (true) {
             case $throwable instanceof ValidationException:
-                {
-                    $code = ErrorCode::PARAM_MISSING;
-                    $msg = $throwable->validator->errors()->first();
-                }
+                $code = ErrorCode::PARAM_MISSING;
+                $msg = $throwable->validator->errors()->first();
                 break;
             case $throwable instanceof QueryException:
                 $code = ErrorCode::ERR_QUERY;
+                $msg = ErrorCode::getMessage($code);
                 break;
             case $throwable instanceof \PDOException:
                 $code = ErrorCode::ERR_DB;
+                $msg = ErrorCode::getMessage($code);
                 break;
             case $throwable instanceof ModelNotFoundException:
                 $code = ErrorCode::ERR_MODEL;
+                $msg = ErrorCode::getMessage($code);
                 break;
             case $throwable instanceof ApiException:
                 $code = $throwable->getCode() ?: ErrorCode::SERVER_ERROR;
+                $msg = ErrorCode::getMessage($code);
                 break;
         }
 
