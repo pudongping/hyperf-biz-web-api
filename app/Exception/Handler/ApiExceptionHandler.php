@@ -50,7 +50,6 @@ class ApiExceptionHandler extends ExceptionHandler
                 break;
             case $throwable instanceof ApiException:
                 $code = $throwable->getCode() ?: ErrorCode::SERVER_ERROR;
-                $msg = ErrorCode::getMessage($code);
                 break;
         }
 
