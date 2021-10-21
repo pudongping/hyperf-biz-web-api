@@ -38,22 +38,20 @@ class ApiExceptionHandler extends ExceptionHandler
                 break;
             case $throwable instanceof QueryException:
                 $code = ErrorCode::ERR_QUERY;
-                $msg = ErrorCode::getMessage($code);
                 break;
             case $throwable instanceof \PDOException:
                 $code = ErrorCode::ERR_DB;
-                $msg = ErrorCode::getMessage($code);
                 break;
             case $throwable instanceof ModelNotFoundException:
                 $code = ErrorCode::ERR_MODEL;
-                $msg = ErrorCode::getMessage($code);
                 break;
             case $throwable instanceof ApiException:
                 $code = $throwable->getCode() ?: ErrorCode::SERVER_ERROR;
+                $msg = ErrorCode::SERVER_ERROR == $code ? ErrorCode::getMessage($code) : $throwable->getMessage();
                 break;
         }
 
-        $msg = $msg ?: ErrorCode::getMessage($code) ?: $throwable->getMessage() ?: 'Whoops, No Error Data';
+        $msg = $msg ?: ErrorCode::getMessage($code) ?: 'Whoops, No Error Data';
 
         // $errorLog = sprintf(
         //     "系统服务报错 ====> %s file ==> %s line ==> %s error message is ==> %s trace ==> %s",
