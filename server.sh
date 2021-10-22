@@ -1,5 +1,6 @@
 #!/bin/bash
-#server manager script
+#Author: Alex
+#server manager script based on hyperf 2.2.0
 
 base_path=$(cd `dirname $0`; pwd)
 server_file="${base_path}/bin/hyperf.php"
@@ -84,7 +85,7 @@ function stop() {
     then
         cat "${pid_path}" | awk '{print $1}' | xargs kill -9 && rm -rf "${pid_path}"
     fi
-    if [[ $process_count -gt 0 ]]
+    if [[ $(master_process_name_count) -gt 0 ]]
     then
         force_kill
     fi
@@ -103,7 +104,8 @@ function start() {
     rm -rf "$runtime_container"
 
     console_blue 'Starting now, please just a moment !'
-    exec php "${server_file}" start >> /dev/null 2>&1 &
+    # change the parent process to init process
+    setsid php "${server_file}" start >> /dev/null 2>&1 &
     sleep 1
 
     console_green "Started successful !"
