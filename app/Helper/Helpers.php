@@ -223,6 +223,22 @@ if (! function_exists('microtime_float')) {
     }
 }
 
+if (! function_exists('get_client_ip')) {
+    /**
+     * 获取客户端 ip
+     *
+     * @return mixed|string
+     */
+    function get_client_ip()
+    {
+        $xForwardedFor = request()->getHeaderLine('X-Forwarded-For');
+        $xRealIp = request()->getHeaderLine('X-Real-IP');
+        $remoteAddr = request()->getServerParams()['remote_addr'];
+        $realIp = $xForwardedFor ?: $xRealIp ?: $remoteAddr ?: '127.0.0.1';
+        return $realIp;
+    }
+}
+
 if (! function_exists('get_current_action')) {
     /**
      * 获取当前请求的控制器和方法
