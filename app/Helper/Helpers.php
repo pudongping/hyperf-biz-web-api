@@ -182,6 +182,21 @@ if (! function_exists('queue_push')) {
     }
 }
 
+if (! function_exists('event_dispatch')) {
+    /**
+     * 事件分发
+     *
+     * @param object $event  事件对象
+     * @return object
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     */
+    function event_dispatch(object $event)
+    {
+        return container()->get(\Psr\EventDispatcher\EventDispatcherInterface::class)->dispatch($event);
+    }
+}
+
 if (! function_exists('format_throwable')) {
     /**
      * 将错误异常对象格式化成字符串
