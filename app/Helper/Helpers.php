@@ -210,6 +210,19 @@ if (! function_exists('format_throwable')) {
     }
 }
 
+if (! function_exists('microtime_float')) {
+    /**
+     * 当前毫秒数
+     *
+     * @return float
+     */
+    function microtime_float()
+    {
+        list($usec, $sec) = explode(" ", microtime());
+        return ((float)$usec + (float)$sec);
+    }
+}
+
 if (! function_exists('get_current_action')) {
     /**
      * 获取当前请求的控制器和方法
