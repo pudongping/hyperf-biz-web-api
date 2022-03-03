@@ -31,6 +31,7 @@ return [
      */
     'context_key' => [
         'temp_value' => 'temp_value',  // 一次请求周期中临时保存的全局数据
+        'simple_sql' => 'simple_sql',  // 一次请求周期中执行的极简 DB sql 语句
     ],
 
 ];

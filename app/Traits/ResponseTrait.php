@@ -18,6 +18,7 @@ use Hyperf\Paginator\LengthAwarePaginator;
 use Hyperf\Database\Model\Collection;
 use Hyperf\Database\Model\Model;
 use Hyperf\Utils\Collection as BaseCollection;
+use Hyperf\Utils\Context;
 
 trait ResponseTrait
 {
@@ -80,6 +81,13 @@ trait ResponseTrait
                     $sql[$connection] = $sqlLog;
                 }
             }
+
+            // 极简 DB sql 日志
+            $simpleSqlKey = config('app.context_key.simple_sql');
+            if (Context::has($simpleSqlKey)) {
+                $sql['simple_db_sql'] = Context::get($simpleSqlKey);
+            }
+
         }
 
         return $sql;
