@@ -1,6 +1,6 @@
 <?php
 /**
- * 助手函数
+ * 框架系统相关助手函数
  *
  * Created by PhpStorm
  * User: Alex
@@ -26,6 +26,7 @@ use Hyperf\ExceptionHandler\Formatter\FormatterInterface;
 use Hyperf\Utils\Context;
 use Hyperf\DB\DB as HyperfSimpleDB;
 use Hyperf\Paginator\LengthAwarePaginator;
+use Hyperf\Utils\Str;
 
 if (! function_exists('container')) {
     /**
@@ -163,6 +164,34 @@ if (! function_exists('simple_db')) {
     function simple_db()
     {
         return container()->get(HyperfSimpleDB::class);
+    }
+}
+
+if (! function_exists('simple_db_debug_sql')) {
+    /**
+     * 极简 DB 打印 sql 语句
+     *
+     * @param string $sql 预处理 sql 语句
+     * @param array $bindings  绑定参数
+     * @param float $executeTime  程序执行时间
+     * @return array
+     */
+    function simple_db_debug_sql(string $sql, array $bindings = [], float $executeTime = 0.0): array
+    {
+        $executeSql = Str::replaceArray('?', $bindings, $sql);
+        logger()->info(sprintf('simple db sql debug ==> time：%ss ==> %s', $executeTime, $executeSql));
+
+        $key = config('app.context_key.simple_sql');
+
+        $sqlArr = Context::get($key, []);
+        array_push($sqlArr, [
+            'query' => $executeSql,
+            'code_execute_time' => sprintf('%ss', $executeTime),  // 代码执行时间（不是 sql 执行时间）
+        ]);
+
+        Context::set($key, $sqlArr);
+
+        return $sqlArr;
     }
 }
 
@@ -346,17 +375,5 @@ if (! function_exists('prepare_for_page')) {
         $res['links']['next_page_url'] = $pageArr['next_page_url'];  // 下一页的 url
         $res['links']['path'] = $pageArr['path'];  // 所有 url 的基本路径
         return $res;
-    }
-}
-
-if (! function_exists('auth')) {
-    /**
-     * 获取用户信息
-     *
-     * @return array|null
-     */
-    function auth(): ?array
-    {
-        return request()->getAttribute('userInfo');
     }
 }
