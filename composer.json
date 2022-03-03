@@ -57,7 +57,8 @@
             "App\\": "app/"
         },
         "files": [
-            "app/Helper/Helpers.php"
+            "app/Helper/SystemHelpers.php",
+            "app/Helper/BusinessHelpers.php"
         ]
     },
     "autoload-dev": {
