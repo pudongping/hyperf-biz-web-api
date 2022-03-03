@@ -16,11 +16,13 @@ use Hyperf\HttpServer\Contract\RequestInterface;
 use Hyperf\HttpServer\Contract\ResponseInterface;
 use Psr\Container\ContainerInterface;
 use App\Traits\ResponseTrait;
+use App\Traits\ValidateTrait;
 
 abstract class AbstractController
 {
 
     use ResponseTrait;
+    use ValidateTrait;
 
     /**
      * @Inject
