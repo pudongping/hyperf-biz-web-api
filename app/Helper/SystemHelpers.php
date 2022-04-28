@@ -77,9 +77,9 @@ if (! function_exists('logger')) {
      *
      * @return \Psr\Log\LoggerInterface
      */
-    function logger()
+    function logger($name = 'hyperf', $group = 'default')
     {
-        return container()->get(LoggerFactory::class)->make();
+        return container()->get(LoggerFactory::class)->get($name, $group);
     }
 }
 
