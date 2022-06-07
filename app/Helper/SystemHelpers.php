@@ -377,3 +377,22 @@ if (! function_exists('prepare_for_page')) {
         return $res;
     }
 }
+
+if (! function_exists('throttle_requests')) {
+    /**
+     * 节流处理
+     *
+     * 默认为：60 秒内允许访问 30 次
+     *
+     * @param string $rateLimits 在指定时间内允许的最大请求次数,单位时间（s）
+     * @param string $prefix 计数器缓存 key 前缀
+     */
+    function throttle_requests(string $rateLimits = '30,60', string $prefix = 'hyperf_biz_web_api:throttle')
+    {
+        $rates = array_map('intval', array_filter(explode(',', $rateLimits)));
+        list($maxAttempts, $decaySeconds) = $rates;
+
+        $instance = make(\App\Helper\ThrottleRequestsHelper::class);
+        call([$instance, 'handle'], [$maxAttempts, $decaySeconds, $prefix]);
+    }
+}
