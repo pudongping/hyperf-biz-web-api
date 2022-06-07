@@ -33,7 +33,8 @@ trait ResponseTrait
     {
         $ret['code'] = ErrorCode::SUCCESS;
         $ret['msg'] = ErrorCode::getMessage(ErrorCode::SUCCESS);
-        $ret['data'] = $this->parseData($data);
+        $parseData = $this->parseData($data);
+        $ret['data'] = $parseData ?: (new \stdClass);
 
         if ($sql = $this->showSql()) {
             $ret['query'] = $sql;
@@ -54,7 +55,7 @@ trait ResponseTrait
     {
         $ret['code'] = $code;
         $ret['msg'] = $message ?: ErrorCode::getMessage($code) ?: '错误信息未定义';
-        $ret['data'] = $data;
+        $ret['data'] = $data ?: (new \stdClass);
 
         if ($sql = $this->showSql()) {
             $ret['query'] = $sql;
