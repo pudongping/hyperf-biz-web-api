@@ -18,7 +18,8 @@ class ErrorCode extends AbstractConstants
     /**
      * @Message("请求成功")
      */
-    const SUCCESS = 200;
+    const SUCCESS = 0;
+    // const SUCCESS = 200;
 
     /**
      * @Message("请求异常")
