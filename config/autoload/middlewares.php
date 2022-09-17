@@ -14,7 +14,6 @@ return [
         \App\Middleware\CorsMiddleware::class,
         \App\Middleware\InitParamsMiddleware::class,
         \App\Middleware\LogInfoMiddleware::class,  // 记录客户端请求 api 时所有的参数
-        \App\Middleware\AuthMiddleware::class,
         \Hyperf\Validation\Middleware\ValidationMiddleware::class,
     ],
 ];
