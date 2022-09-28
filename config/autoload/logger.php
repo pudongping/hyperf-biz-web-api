@@ -29,5 +29,14 @@ return [
                 'allowInlineLineBreaks' => true,
             ],
         ],
+        'processors' => [
+            [
+                'class' => \App\Kernel\Log\AppendRequestIdProcessor::class
+            ],
+            [
+                // @see https://github.com/Seldaek/monolog/blob/main/src/Monolog/Processor/MemoryUsageProcessor.php
+                'class' => Monolog\Processor\MemoryUsageProcessor::class
+            ]
+        ]
     ],
 ];

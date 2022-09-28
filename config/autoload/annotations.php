@@ -17,5 +17,9 @@ return [
         'ignore_annotations' => [
             'mixin',
         ],
+        'class_map' => [
+            // 需要映射的类名 => 类所在的文件地址
+            Hyperf\Utils\Coroutine::class => BASE_PATH . '/app/Kernel/ClassMap/Coroutine.php',
+        ],
     ],
 ];
