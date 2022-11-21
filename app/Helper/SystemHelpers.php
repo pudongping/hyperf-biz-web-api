@@ -309,6 +309,83 @@ if (! function_exists('get_current_action')) {
     }
 }
 
+if (! function_exists('route_original')) {
+    /**
+     * 获取路由地址
+     *
+     * @param bool $withParams 是否需要携带参数
+     * @return string
+     * @throws Exception
+     */
+    function route_original(bool $withParams = false): string
+    {
+        $obj = request()->getAttribute(Dispatched::class);
+
+        if (!property_exists($obj, 'handler')
+            || !isset($obj->handler)
+            || !property_exists($obj->handler, 'route')
+        ) {
+            throw new \Exception('The route is undefined! Please check!');
+        }
+
+        if ($withParams) {
+            // eg: "/foo/bar/article/detail/123"
+            return request()->getPathInfo();
+        }
+
+        // eg: "/foo/bar/{hello}/detail/{id:\d+}"
+        return $obj->handler->route;
+    }
+}
+
+if (! function_exists('is_local')) {
+    /**
+     * 当前环境是否为本地环境
+     *
+     * @return bool
+     */
+    function is_local(): bool
+    {
+        return config('app_env') === 'local';
+    }
+}
+
+if (! function_exists('is_dev')) {
+    /**
+     * 当前环境是否为开发环境
+     *
+     * @return bool
+     */
+    function is_dev(): bool
+    {
+        return config('app_env') === 'dev';
+    }
+}
+
+if (! function_exists('is_test')) {
+    /**
+     * 当前环境是否为测试环境
+     *
+     * @return bool
+     */
+    function is_test(): bool
+    {
+        return config('app_env') === 'test';
+    }
+}
+
+if (! function_exists('is_prod')) {
+    /**
+     * 当前环境是否为生产环境
+     *
+     * @return bool
+     */
+    function is_prod(): bool
+    {
+        return config('app_env') === 'prod';
+    }
+}
+
 if (! function_exists('set_global_init_params')) {
     /**
      * 重新设置全局初始化参数（在一次请求生命周期中替换掉 App\Middleware\InitParamsMiddleware::class 中的定义）
@@ -394,5 +471,44 @@ if (! function_exists('throttle_requests')) {
 
         $instance = make(\App\Helper\ThrottleRequestsHelper::class);
         call([$instance, 'handle'], [$maxAttempts, $decaySeconds, $prefix]);
+    }
+}
+
+if (! function_exists('aes_cbc_encrypt')) {
+    /**
+     * aes cbc 加密
+     *
+     * @param $plaintext 明文
+     * @param string $key 加密 key
+     * @param string $iv 向量
+     * @return string
+     */
+    function aes_cbc_encrypt($plaintext, string $key, string $iv = ''): string
+    {
+        if ($iv == '') $iv = mb_substr($key, 0, 16);
+        $jsonPlaintext = json_encode($plaintext, 256);
+        $encrypted = openssl_encrypt($jsonPlaintext, 'AES-128-CBC', $key, OPENSSL_RAW_DATA, $iv);
+        return base64_encode($encrypted);
+    }
+}
+
+if (! function_exists('aes_cbc_decrypt')) {
+    /**
+     * aes cbc 解密
+     *
+     * @param string $encrypted 密文
+     * @param string $key 解密 key
+     * @param string $iv 向量
+     * @return array
+     */
+    function aes_cbc_decrypt(string $encrypted, string $key, string $iv = ''): array
+    {
+        if ($iv == '') $iv = mb_substr($key, 0, 16);
+        $str = base64_decode($encrypted);
+        $decrypted = openssl_decrypt($str, 'AES-128-CBC', $key, OPENSSL_RAW_DATA, $iv);
+        if (!$decrypted) {
+            return [];
+        }
+        return json_decode($decrypted, true) ?: [];
     }
 }
