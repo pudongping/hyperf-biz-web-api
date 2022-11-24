@@ -33,8 +33,7 @@ trait ResponseTrait
     {
         $ret['code'] = ErrorCode::SUCCESS;
         $ret['msg'] = ErrorCode::getMessage(ErrorCode::SUCCESS);
-        $parseData = $this->parseData($data);
-        $ret['data'] = $parseData ?: (new \stdClass);
+        $ret['data'] = $this->parseData($data);
 
         if ($sql = $this->showSql()) {
             $ret['query'] = $sql;
@@ -51,11 +50,11 @@ trait ResponseTrait
      * @param string $message 错误信息
      * @return PsrResponseInterface
      */
-    final public function fail(int $code = ErrorCode::ERROR, array $data = [], string $message = '')
+    final public function fail(int $code = ErrorCode::ERROR, array $data = [], string $message = ''): PsrResponseInterface
     {
         $ret['code'] = $code;
         $ret['msg'] = $message ?: ErrorCode::getMessage($code) ?: '错误信息未定义';
-        $ret['data'] = $data ?: (new \stdClass);
+        $ret['data'] = $this->parseData($data);
 
         if ($sql = $this->showSql()) {
             $ret['query'] = $sql;
@@ -96,7 +95,14 @@ trait ResponseTrait
 
     final public function parseData($originalData)
     {
-        if (! $originalData) return [];
+        if (! $originalData) {
+            if (is_object($originalData)) {
+                return (new \stdClass);
+            }
+            if (is_array($originalData)) {
+                return [];
+            }
+        }
 
         if (! is_object($originalData)) return $originalData;
 
@@ -122,8 +128,8 @@ trait ResponseTrait
                 // Db::table('table_name')->get();  ==> Hyperf\Utils\Collection
                 $data[$resultField] = $originalData->toArray();
                 break;
-            case $originalData instanceof \StdClass:
-                // Db::table('table_name')->first();  ==> \StdClass
+            case $originalData instanceof \stdClass:
+                // Db::table('table_name')->first();  ==> \stdClass
                 $data = (array)$originalData;
                 break;
         }
