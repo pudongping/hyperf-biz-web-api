@@ -20,6 +20,7 @@ use Hyperf\Database\Model\ModelNotFoundException;
 use App\Traits\ResponseTrait;
 use App\Constants\ErrorCode;
 use App\Exception\ApiException;
+use Hyperf\HttpMessage\Exception\NotFoundHttpException;
 
 class ApiExceptionHandler extends ExceptionHandler
 {
@@ -45,6 +46,10 @@ class ApiExceptionHandler extends ExceptionHandler
             case $throwable instanceof ModelNotFoundException:
                 $code = ErrorCode::ERR_MODEL;
                 break;
+            case $throwable instanceof NotFoundHttpException:
+                $code = ErrorCode::NOT_FOUND;
+                $msg = '路由未定义或不支持当前请求';
+                break;
             case $throwable instanceof ApiException:
                 $code = $throwable->getCode() ?: ErrorCode::SERVER_ERROR;
                 $msg = ErrorCode::SERVER_ERROR == $code ? ErrorCode::getMessage($code) : $throwable->getMessage();
@@ -52,16 +57,6 @@ class ApiExceptionHandler extends ExceptionHandler
         }
 
         $msg = $msg ?: ErrorCode::getMessage($code) ?: 'Whoops, No Error Data';
-
-        // $errorLog = sprintf(
-        //     "系统服务报错 ====> %s file ==> %s line ==> %s error message is ==> %s trace ==> %s",
-        //     PHP_EOL,
-        //     $throwable->getFile() . PHP_EOL,
-        //     $throwable->getLine() . PHP_EOL,
-        //     $throwable->getMessage() . PHP_EOL,
-        //     PHP_EOL . $throwable->getTraceAsString() . PHP_EOL
-        // );
-        // logger()->error($errorLog);
 
         // 阻止异常冒泡
         $this->stopPropagation();
