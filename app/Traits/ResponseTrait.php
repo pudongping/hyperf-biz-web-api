@@ -95,15 +95,10 @@ trait ResponseTrait
 
     final public function parseData($originalData)
     {
-        if (! $originalData) {
-            if (is_object($originalData)) {
-                return (new \stdClass);
-            }
-            if (is_array($originalData)) {
-                return [];
-            }
+        if (is_null($originalData) || (is_object($originalData) && empty((array)$originalData))) {
+            // 如果返回值直接为 null 或者为空对象时
+            return (new \stdClass());
         }
-
         if (! is_object($originalData)) return $originalData;
 
         $data = [];
