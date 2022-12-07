@@ -26,10 +26,10 @@ trait ResponseTrait
     /**
      * 正确时返回
      *
-     * @param array $data 返回数据
+     * @param mixed $data 返回数据
      * @return PsrResponseInterface
      */
-    final public function send($data = []): PsrResponseInterface
+    final public function send($data): PsrResponseInterface
     {
         $ret['code'] = ErrorCode::SUCCESS;
         $ret['msg'] = ErrorCode::getMessage(ErrorCode::SUCCESS);
@@ -54,7 +54,7 @@ trait ResponseTrait
     {
         $ret['code'] = $code;
         $ret['msg'] = $message ?: ErrorCode::getMessage($code) ?: '错误信息未定义';
-        $ret['data'] = $this->parseData($data);
+        // $ret['data'] = $this->parseData($data);
 
         if ($sql = $this->showSql()) {
             $ret['query'] = $sql;
