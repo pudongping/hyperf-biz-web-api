@@ -21,6 +21,7 @@ use App\Traits\ResponseTrait;
 use App\Constants\ErrorCode;
 use App\Exception\ApiException;
 use Hyperf\HttpMessage\Exception\NotFoundHttpException;
+use Hyperf\HttpMessage\Exception\MethodNotAllowedHttpException;
 
 class ApiExceptionHandler extends ExceptionHandler
 {
@@ -49,6 +50,10 @@ class ApiExceptionHandler extends ExceptionHandler
             case $throwable instanceof NotFoundHttpException:
                 $code = ErrorCode::NOT_FOUND;
                 $msg = '路由未定义或不支持当前请求';
+                break;
+            case $throwable instanceof MethodNotAllowedHttpException:
+                $code = ErrorCode::ERR_HTTP_METHOD_NOT_ALLOWED;
+                $msg = $throwable->getMessage();
                 break;
             case $throwable instanceof ApiException:
                 $code = $throwable->getCode() ?: ErrorCode::SERVER_ERROR;
