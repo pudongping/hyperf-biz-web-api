@@ -512,3 +512,34 @@ if (! function_exists('aes_cbc_decrypt')) {
         return json_decode($decrypted, true) ?: [];
     }
 }
+
+if (! function_exists('csv_export')) {
+    /**
+     * csv 数据导出
+     *
+     * @param string $fileName 文件名 eg: "name.csv"
+     * @param array $data 要导出的数据 eg: $data = [['name', 'age'], ['alex', 27]];
+     * @return \Psr\Http\Message\ResponseInterface|null
+     */
+    function csv_export(string $fileName, array $data): ?\Psr\Http\Message\ResponseInterface
+    {
+        if (! $data) return null;
+        $str = '';
+        foreach ($data as $v) {
+            if (! is_array($v)) {
+                continue;
+            }
+            $value = array_map(function ($val) {
+                return sprintf('"%s"', $val);
+            }, $v);
+            $str .= mb_convert_encoding(implode(',', $value), 'GBK', 'UTF-8') . "\n";
+        }
+        if (! $str) return null;
+
+        return (new \Hyperf\HttpServer\Response())
+            ->withHeader('content-type', 'text/csv')
+            ->withHeader('content-disposition', "attachment; filename={$fileName}")
+            ->withHeader('content-transfer-encoding', 'binary')
+            ->withBody(new \Hyperf\HttpMessage\Stream\SwooleStream($str));
+    }
+}
