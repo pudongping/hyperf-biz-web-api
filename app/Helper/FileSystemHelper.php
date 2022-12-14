@@ -15,7 +15,7 @@ use Hyperf\HttpServer\Contract\RequestInterface;
 use Hyperf\Filesystem\FilesystemFactory;
 use Hyperf\Utils\Str;
 
-class UploadHelper
+class FileSystemHelper
 {
 
     const STORAGE_LOCAL = 'local';
