@@ -543,3 +543,74 @@ if (! function_exists('csv_export')) {
             ->withBody(new \Hyperf\HttpMessage\Stream\SwooleStream($str));
     }
 }
+
+if (! function_exists('lock_spin')) {
+    /**
+     * 自旋锁
+     *
+     * @param callable $callBack 需要触发的回调函数
+     * @param string $key 缓存 key（加锁的颗粒度）
+     * @param int $counter 尝试触发多少次直至回调函数处理完成
+     * @param int $expireTime 缓存时间（实际上是赌定回调函数处理多少秒内可以处理完成）
+     * @param int $loopWaitTime 加锁等待时长
+     * @return null
+     * @throws RedisException
+     */
+    function lock_spin(callable $callBack, string $key, int $counter = 10, int $expireTime = 5, int $loopWaitTime = 500000)
+    {
+        $result = null;
+        while ($counter > 0) {
+            $val = microtime() . '_' . uniqid('', true);
+            $noticeLog = [
+                'params' => [
+                    'key' => $key,
+                    'val' => $val,
+                    'expire_time' => $expireTime,
+                    'loop_wait_time' => $loopWaitTime
+                ],
+                'counter' => $counter
+            ];
+            logger()->notice(__FUNCTION__ . ' ====> ', $noticeLog);
+            if (redis()->set($key, $val, ['NX', 'EX' => $expireTime])) {
+                if (redis()->get($key) === $val) {
+                    try {
+                        $result = $callBack();
+                    } catch (\Throwable $e) {
+                        $msg = \sprintf(
+                            'An error was found executing the callback function: ' . PHP_EOL . '(%s) %s: %s' . PHP_EOL . '%s' . PHP_EOL,
+                            __FUNCTION__,
+                            get_class($e),
+                            $e->getMessage(),
+                            $e->getTraceAsString()
+                        );
+                        throw new \RuntimeException($msg, $e->getCode(), $e->getPrevious());
+                    } finally {
+                        redis()->del($key);
+                        logger()->notice(__FUNCTION__ . ' delete key ====> ', $noticeLog);
+                    }
+                    return $result;
+                }
+            }
+            $counter--;
+            usleep($loopWaitTime);
+        }
+        return $result;
+    }
+}
+
+if (! function_exists('array_same')) {
+    /**
+     * 检查两个数组元素是否相同（真子集）
+     *
+     * @param array $arr1 数组1
+     * @param array $arr2 数组2
+     * @param bool $assoc 是否带索引检查
+     * @return bool arr1 和 arr2 中所有的元素都有（arr1 包含 arr2，arr2 也包含 arr1）则为 true，否则为 false
+     */
+    function array_same(array $arr1, array $arr2, bool $assoc = false): bool
+    {
+        return $assoc
+            ? (! array_diff_assoc($arr1, $arr2) && ! array_diff_assoc($arr2, $arr1))
+            : (! array_diff($arr1, $arr2) && ! array_diff($arr2, $arr1));
+    }
+}
