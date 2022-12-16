@@ -79,12 +79,11 @@ class ThrottleRequestsHelper
     private function hit(string $key, int $decaySeconds = 60): int
     {
         $timerKey = $key . $this->keySuffix;
-        if (! redis()->exists($timerKey)) {
-            // 计时器的有效期时间戳
-            $expirationTime = Carbon::now()->addRealSeconds($decaySeconds)->getTimestamp();
-            // 计时器
-            redis()->setex($timerKey, $decaySeconds, $expirationTime);
-        }
+
+        // 计时器的有效期时间戳
+        $expirationTime = Carbon::now()->addRealSeconds($decaySeconds)->getTimestamp();
+        // 计时器
+        redis()->set($timerKey, $decaySeconds, ['NX', 'EX' => $expirationTime]);
 
         // 计数器
         return redis()->incr($key);  // 返回增加到多少的具体数字
