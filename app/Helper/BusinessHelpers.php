@@ -14,9 +14,11 @@ if (! function_exists('auth')) {
      * 获取用户信息
      *
      * @return array|null
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     function auth(): ?array
     {
-        return request()->getAttribute('userInfo');
+        return request()->getAttribute('user_info');
     }
 }

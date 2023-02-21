@@ -9,18 +9,13 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Hyperf\Utils\Context;
+use Hyperf\Context\Context;
 
 class CorsMiddleware implements MiddlewareInterface
 {
-    /**
-     * @var ContainerInterface
-     */
-    protected $container;
 
-    public function __construct(ContainerInterface $container)
+    public function __construct(protected ContainerInterface $container)
     {
-        $this->container = $container;
     }
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
@@ -28,9 +23,9 @@ class CorsMiddleware implements MiddlewareInterface
         $response = Context::get(ResponseInterface::class);
         $response = $response->withHeader('Access-Control-Allow-Origin', '*')
             ->withHeader('Access-Control-Allow-Credentials', 'true')
-            ->withHeader('Access-Control-Allow-Methods', 'POST,GET,OPTIONS,DELETE')
+            ->withHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,PATCH,OPTIONS,DELETE')
             ->withHeader('Access-Control-Max-Age', 3628800)
-            ->withHeader('Access-Control-Allow-Headers', 'DNT,Keep-Alive,User-Agent,Cache-Control,Content-Type,Authorization,token');
+            ->withHeader('Access-Control-Allow-Headers', 'DNT,Keep-Alive,User-Agent,Cache-Control,Content-Type,Authorization,token,uid,version');
 
         Context::set(ResponseInterface::class, $response);
 
@@ -38,8 +33,6 @@ class CorsMiddleware implements MiddlewareInterface
             return $response;
         }
 
-        $response = $handler->handle($request);
-
-        return $response;
+        return $handler->handle($request);
     }
 }

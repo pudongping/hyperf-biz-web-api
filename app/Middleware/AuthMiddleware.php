@@ -9,18 +9,13 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Hyperf\Utils\Context;
+use Hyperf\Context\Context;
 
 class AuthMiddleware implements MiddlewareInterface
 {
-    /**
-     * @var ContainerInterface
-     */
-    protected $container;
 
-    public function __construct(ContainerInterface $container)
+    public function __construct(protected ContainerInterface $container)
     {
-        $this->container = $container;
     }
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
@@ -32,11 +27,11 @@ class AuthMiddleware implements MiddlewareInterface
         ];
 
         $request = Context::override(ServerRequestInterface::class, function () use ($request, $userInfo) {
-            return $request->withAttribute('userInfo', $userInfo);
+            return $request->withAttribute('user_info', $userInfo);
         });
 
         // $request = Context::get(ServerRequestInterface::class);
-        // $request = $request->withAttribute('userInfo', $userInfo);
+        // $request = $request->withAttribute('user_info', $userInfo);
         // Context::set(ServerRequestInterface::class, $request);
 
         return $handler->handle($request);

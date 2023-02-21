@@ -12,7 +12,12 @@ declare(strict_types=1);
 namespace App\Model;
 
 use Hyperf\DbConnection\Model\Model as HyperfBaseModel;
+use Hyperf\ModelCache\Cacheable;
+use Hyperf\ModelCache\CacheableInterface;
 
-abstract class BaseModel extends HyperfBaseModel
+abstract class BaseModel extends HyperfBaseModel implements CacheableInterface
 {
+
+    // use Cacheable;
+
 }

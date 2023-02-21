@@ -1,12 +1,12 @@
 # 介绍
 
-本项目采用 [hyperf 2.2](https://hyperf.wiki/2.2/#/README) 框架。
+本项目采用 [hyperf 3.0](https://hyperf.wiki/3.0/#/README) 框架。
 
 ## 服务器要求
 
-- PHP >= 7.4
+- PHP >= 8.0 and <= 8.1
 - 以下任一网络引擎
-    - Swoole PHP 扩展 >= 4.5，并关闭了 Short Name
+    - Swoole PHP 扩展 >= 4.5，并关闭了 `Short Name`
     - Swow PHP 扩展 (Beta)
 - JSON PHP 扩展
 - Pcntl PHP 扩展
@@ -21,11 +21,11 @@
 
 docker run --name hyperf-project \
 -v /Users/pudongping/codes/hyperf-project:/hyperf-project \
--p 9510:9510 \
--p 9511:9511 -it \
+--net=alex-network \
+-p 9510-9520:9510-9520 -it \
 --privileged -u root \
 --entrypoint /bin/sh \
-hyperf/hyperf:7.4-alpine-v3.11-swoole
+hyperf/hyperf:8.0-alpine-v3.16-swoole
 
 # docker 容器内可能要添加阿里云 composer 镜像
 composer config -g repo.packagist composer https://mirrors.aliyun.com/composer
@@ -52,4 +52,4 @@ php bin/hyperf.php start
 ## 代码规范
 
 1. **必须**遵循 [PSR-4](https://learnku.com/docs/psr/psr-4-autoloader-meta/1610) 和 [PSR-12](https://learnku.com/docs/psr/psr-12-extended-coding-style-guide/5789) 规范
-2. **建议**遵循 SOLID 编码准则
+2. **建议**遵循 ***SOLID*** 编码准则
