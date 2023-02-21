@@ -15,7 +15,7 @@ namespace App\Helper;
 
 use Carbon\Carbon;
 use Psr\Http\Message\ResponseInterface;
-use Hyperf\Utils\Context;
+use Hyperf\Context\Context;
 use App\Constants\ErrorCode;
 use App\Exception\ApiException;
 
@@ -27,7 +27,7 @@ class ThrottleRequestsHelper
      *
      * @var string
      */
-    protected $keySuffix = ':timer';
+    protected string $keySuffix = ':timer';
 
     /**
      * 处理节流
@@ -36,8 +36,9 @@ class ThrottleRequestsHelper
      * @param int $decaySeconds  单位时间（s）
      * @param string $prefix  计数器缓存 key 前缀
      * @param string $key 计数器缓存 key
+     * @return void
      */
-    public function handle(int $maxAttempts = 60, int $decaySeconds = 60, string $prefix = 'throttle', string $key = '')
+    public function handle(int $maxAttempts = 60, int $decaySeconds = 60, string $prefix = 'throttle', string $key = ''): void
     {
         if (! $key) {
             $key = $this->resolveRequestSignature();
@@ -58,6 +59,8 @@ class ThrottleRequestsHelper
      * 生成缓存 key
      *
      * @return string
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function resolveRequestSignature(): string
     {
@@ -75,6 +78,9 @@ class ThrottleRequestsHelper
      * @param string $key  计数器的缓存key
      * @param int $decaySeconds  指定时间（S）
      * @return int  计数器具体增加到多少值
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     * @throws \RedisException
      */
     private function hit(string $key, int $decaySeconds = 60): int
     {
@@ -83,7 +89,7 @@ class ThrottleRequestsHelper
         // 计时器的有效期时间戳
         $expirationTime = Carbon::now()->addRealSeconds($decaySeconds)->getTimestamp();
         // 计时器
-        redis()->set($timerKey, $decaySeconds, ['NX', 'EX' => $expirationTime]);
+        redis()->set($timerKey, strval($decaySeconds), ['NX', 'EX' => $expirationTime]);
 
         // 计数器
         return redis()->incr($key);  // 返回增加到多少的具体数字
@@ -95,6 +101,9 @@ class ThrottleRequestsHelper
      * @param string $key  计数器的缓存 key
      * @param int $maxAttempts  在指定时间内允许的最大请求次数
      * @return bool
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     * @throws \RedisException
      */
     private function tooManyAttempts(string $key, int $maxAttempts): bool
     {
@@ -121,8 +130,11 @@ class ThrottleRequestsHelper
      * @param string $key  计数器的缓存 key
      * @param int $maxAttempts  在指定时间内允许的最大请求次数
      * @return ApiException
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     * @throws \RedisException
      */
-    protected function buildException(string $key, int $maxAttempts)
+    protected function buildException(string $key, int $maxAttempts): ApiException
     {
         // 距离允许下一次请求还有多少秒
         $retryAfter = $this->getTimeUntilNextRetry($key);
@@ -139,8 +151,12 @@ class ThrottleRequestsHelper
      * @param string $key  计数器的缓存key
      * @param int $maxAttempts  在指定时间内允许的最大请求次数
      * @param int|null $retryAfter  距离下次重试请求需要等待的时间（s）
+     * @return void
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     * @throws \RedisException
      */
-    protected function setHeaders(string $key, int $maxAttempts, ?int $retryAfter = null)
+    protected function setHeaders(string $key, int $maxAttempts, ?int $retryAfter = null): void
     {
         // 设置返回头数据
         $headers = $this->getHeaders(
@@ -161,7 +177,7 @@ class ThrottleRequestsHelper
      * @param int|null $retryAfter  距离下次重试请求需要等待的时间（s）
      * @return int[]
      */
-    protected function getHeaders(int $maxAttempts, int $remainingAttempts, ?int $retryAfter = null)
+    protected function getHeaders(int $maxAttempts, int $remainingAttempts, ?int $retryAfter = null): array
     {
         $headers = [
             'X-RateLimit-Limit' => $maxAttempts,  // 在指定时间内允许的最大请求次数
@@ -180,8 +196,9 @@ class ThrottleRequestsHelper
      * 添加请求头数据
      *
      * @param array $headers
+     * @return void
      */
-    protected function addHeaders(array $headers = [])
+    protected function addHeaders(array $headers = []): void
     {
         $response = Context::get(ResponseInterface::class);
 
@@ -196,9 +213,12 @@ class ThrottleRequestsHelper
      * 计算距离允许下一次请求还有多少秒
      *
      * @param string $key
-     * @return false|int|mixed|string
+     * @return mixed
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     * @throws \RedisException
      */
-    private function getTimeUntilNextRetry(string $key)
+    private function getTimeUntilNextRetry(string $key): mixed
     {
         // 在 $this->tooManyAttempts() 方法中已经判断了计时器的缓存 key 是否存在，因此在这里毋需再次累赘判断
         // 计时器的有效期减去当前时间戳
@@ -211,9 +231,12 @@ class ThrottleRequestsHelper
      * @param string $key 计数器的缓存key
      * @param int $maxAttempts  在指定时间内允许的最大请求次数
      * @param int|null $retryAfter  距离下次重试请求需要等待的时间（s）
-     * @return false|int|mixed|string
+     * @return mixed
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     * @throws \RedisException
      */
-    private function calculateRemainingAttempts(string $key, int $maxAttempts, ?int $retryAfter = null)
+    private function calculateRemainingAttempts(string $key, int $maxAttempts, ?int $retryAfter = null): mixed
     {
         if (is_null($retryAfter)) {
             // 获取一个不存在的键时，会直接返回 false

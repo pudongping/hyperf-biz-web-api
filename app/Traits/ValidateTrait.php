@@ -19,11 +19,8 @@ use App\Exception\ApiException;
 trait ValidateTrait
 {
 
-    /**
-     * @Inject
-     * @var ValidatorFactoryInterface
-     */
-    protected $validationFactory;
+    #[Inject]
+    protected ValidatorFactoryInterface $validationFactory;
 
     /**
      * 自动加载验证器验证参数
@@ -34,9 +31,10 @@ trait ValidateTrait
      * @param array $customAttributes 验证规则字段属性
      * @param string $reqPath 所需要加载的验证器
      * @return array 验证通过后的数据
-     * @throws \Exception
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    final public function validate(array $args = [], array $rules = [], array $messages = [], array $customAttributes = [], string $reqPath = '') : array
+    final public function validate(array $args = [], array $rules = [], array $messages = [], array $customAttributes = [], string $reqPath = ''): array
     {
         $defaultValidator = get_current_action()['controller'];
         $defaultValidator = str_replace('Controller', 'Request', $defaultValidator);

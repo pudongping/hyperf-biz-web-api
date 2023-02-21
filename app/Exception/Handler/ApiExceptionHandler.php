@@ -35,7 +35,7 @@ class ApiExceptionHandler extends ExceptionHandler
 
         switch (true) {
             case $throwable instanceof ValidationException:
-                $code = ErrorCode::PARAM_MISSING;
+                $code = ErrorCode::ERR_HTTP_UNPROCESSABLE_ENTITY;
                 $msg = $throwable->validator->errors()->first();
                 break;
             case $throwable instanceof QueryException:

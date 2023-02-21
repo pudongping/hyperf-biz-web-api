@@ -17,12 +17,12 @@ abstract class BaseService
     /**
      * 使用分页
      *
-     * @param $model 模型实例
+     * @param mixed $model 模型实例
      * @param string $sortColumn 排序字段
      * @param string $sort 排序规则 desc|asc
      * @return mixed 数据集
      */
-    public function usePage($model, $sortColumn = 'id', $sort = 'desc')
+    public function usePage(mixed $model, string $sortColumn = 'id', string $sort = 'desc'): mixed
     {
         $defaultPerPage = config('app.default_per_page');
         $isShowPage = get_global_init_params('is_show_page', false);
@@ -62,8 +62,11 @@ abstract class BaseService
      * @param string $defaultBegin  默认开始时间
      * @param string $defaultEnd  默认结束时间
      * @return array|false  开始时间结束时间数组
+     * @return array|false
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    public function searchTime(string $defaultBegin = '', string $defaultEnd = '')
+    public function searchTime(string $defaultBegin = '', string $defaultEnd = ''): array|false
     {
         $begin = request()->input('begin', $defaultBegin);
         if (! empty($begin) && empty($defaultEnd)) {

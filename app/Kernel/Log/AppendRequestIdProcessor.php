@@ -11,15 +11,16 @@ declare(strict_types=1);
 
 namespace App\Kernel\Log;
 
-use Hyperf\Utils\Context;
 use Hyperf\Utils\Coroutine;
 use Monolog\Processor\ProcessorInterface;
+use Hyperf\Context\Context;
+use Monolog\LogRecord;
 
 class AppendRequestIdProcessor implements ProcessorInterface
 {
     public const REQUEST_ID = 'request_id';
 
-    public function __invoke(array $record)
+    public function __invoke(array|LogRecord $record)
     {
         $record['extra']['request_id'] = Context::getOrSet(self::REQUEST_ID, uniqid());
         $record['extra']['coroutine_id'] = Coroutine::id();

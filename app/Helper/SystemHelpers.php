@@ -9,39 +9,20 @@
  */
 declare(strict_types=1);
 
-use Hyperf\Utils\ApplicationContext;
-use Hyperf\Redis\Redis;
-use Hyperf\Contract\StdoutLoggerInterface;
-use Hyperf\Logger\LoggerFactory;
-use Hyperf\HttpServer\Contract\RequestInterface;
-use Hyperf\HttpServer\Contract\ResponseInterface;
-use Hyperf\Server\ServerFactory;
-use Swoole\Websocket\Frame;
-use Swoole\WebSocket\Server as WebSocketServer;
-use Psr\SimpleCache\CacheInterface;
-use Hyperf\HttpServer\Router\Dispatched;
-use Hyperf\AsyncQueue\JobInterface;
-use Hyperf\AsyncQueue\Driver\DriverFactory;
-use Hyperf\ExceptionHandler\Formatter\FormatterInterface;
-use Hyperf\Utils\Context;
-use Hyperf\DB\DB as HyperfSimpleDB;
-use Hyperf\Paginator\LengthAwarePaginator;
-use Hyperf\Utils\Str;
-
 if (! function_exists('container')) {
     /**
      * 获取容器对象
      *
      * @param string $id
-     * @return mixed|\Psr\Container\ContainerInterface
+     * @return mixed|\Psr\Container\ContainerInterface|string
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    function container(string $id = '')
+    function container(string $id = ''): mixed
     {
-        $container = ApplicationContext::getContainer();
+        $container = \Hyperf\Utils\ApplicationContext::getContainer();
 
-        if ($id) {
-            return $container->get($id);
-        }
+        if ($id) return $container->get($id);
 
         return $container;
     }
@@ -49,13 +30,15 @@ if (! function_exists('container')) {
 
 if (! function_exists('redis')) {
     /**
-     *  获取 Redis 协程客户端
+     * 获取 Redis 协程客户端
      *
-     * @return Redis|mixed
+     * @return \Hyperf\Redis\Redis|mixed
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    function redis()
+    function redis(): mixed
     {
-        return container()->get(Redis::class);
+        return container()->get(\Hyperf\Redis\Redis::class);
     }
 }
 
@@ -63,11 +46,13 @@ if (! function_exists('std_out_log')) {
     /**
      * 控制台日志
      *
-     * @return StdoutLoggerInterface|mixed
+     * @return \Hyperf\Contract\StdoutLoggerInterface|mixed
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    function std_out_log()
+    function std_out_log(): mixed
     {
-        return container()->get(StdoutLoggerInterface::class);
+        return container()->get(\Hyperf\Contract\StdoutLoggerInterface::class);
     }
 }
 
@@ -75,11 +60,15 @@ if (! function_exists('logger')) {
     /**
      * 文件日志
      *
+     * @param string $name
+     * @param string $group
      * @return \Psr\Log\LoggerInterface
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    function logger($name = 'hyperf', $group = 'default')
+    function logger(string $name = 'hyperf', string $group = 'default'): \Psr\Log\LoggerInterface
     {
-        return container()->get(LoggerFactory::class)->get($name, $group);
+        return container()->get(\Hyperf\Logger\LoggerFactory::class)->get($name, $group);
     }
 }
 
@@ -87,11 +76,13 @@ if (! function_exists('request')) {
     /**
      * request 实例
      *
-     * @return RequestInterface|mixed
+     * @return \Hyperf\HttpServer\Contract\RequestInterface|mixed
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    function request()
+    function request(): mixed
     {
-        return container()->get(RequestInterface::class);
+        return container()->get(\Hyperf\HttpServer\Contract\RequestInterface::class);
     }
 }
 
@@ -99,11 +90,13 @@ if (! function_exists('response')) {
     /**
      * response 实例
      *
-     * @return ResponseInterface|mixed
+     * @return \Hyperf\HttpServer\Contract\ResponseInterface|mixed
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    function response()
+    function response(): mixed
     {
-        return container()->get(ResponseInterface::class);
+        return container()->get(\Hyperf\HttpServer\Contract\ResponseInterface::class);
     }
 }
 
@@ -112,10 +105,12 @@ if (! function_exists('server')) {
      * 基于 swoole server 的 server 实例
      *
      * @return \Swoole\Coroutine\Server|\Swoole\Server
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    function server()
+    function server(): mixed
     {
-        return container()->get(ServerFactory::class)->getServer()->getServer();
+        return container()->get(\Hyperf\Server\ServerFactory::class)->getServer()->getServer();
     }
 }
 
@@ -123,11 +118,13 @@ if (! function_exists('frame')) {
     /**
      * websocket frame 实例
      *
-     * @return mixed|Frame
+     * @return mixed|\Swoole\Websocket\Frame
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    function frame()
+    function frame(): mixed
     {
-        return container()->get(Frame::class);
+        return container()->get(\Swoole\Websocket\Frame::class);
     }
 }
 
@@ -135,11 +132,13 @@ if (! function_exists('websocket')) {
     /**
      * websocket 实例
      *
-     * @return mixed|WebSocketServer
+     * @return mixed|\Swoole\WebSocket\Server
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    function websocket()
+    function websocket(): mixed
     {
-        return container()->get(WebSocketServer::class);
+        return container()->get(\Swoole\WebSocket\Server::class);
     }
 }
 
@@ -147,11 +146,13 @@ if (! function_exists('cache')) {
     /**
      * 简单的缓存实例
      *
-     * @return mixed|CacheInterface
+     * @return mixed|\Psr\SimpleCache\CacheInterface
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    function cache()
+    function cache(): mixed
     {
-        return container()->get(CacheInterface::class);
+        return container()->get(\Psr\SimpleCache\CacheInterface::class);
     }
 }
 
@@ -159,11 +160,13 @@ if (! function_exists('simple_db')) {
     /**
      * 极简 DB
      *
-     * @return HyperfSimpleDB|mixed
+     * @return \Hyperf\DB\DB|mixed
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    function simple_db()
+    function simple_db(): mixed
     {
-        return container()->get(HyperfSimpleDB::class);
+        return container()->get(\Hyperf\DB\DB::class);
     }
 }
 
@@ -178,18 +181,18 @@ if (! function_exists('simple_db_debug_sql')) {
      */
     function simple_db_debug_sql(string $sql, array $bindings = [], float $executeTime = 0.0): array
     {
-        $executeSql = Str::replaceArray('?', $bindings, $sql);
+        $executeSql = \Hyperf\Utils\Str::replaceArray('?', $bindings, $sql);
         logger()->info(sprintf('simple db sql debug ==> time：%ss ==> %s', $executeTime, $executeSql));
 
         $key = config('app.context_key.simple_sql');
 
-        $sqlArr = Context::get($key, []);
-        array_push($sqlArr, [
+        $sqlArr = \Hyperf\Context\Context::get($key, []);
+        $sqlArr[] = [
             'query' => $executeSql,
             'code_execute_time' => sprintf('%ss', $executeTime),  // 代码执行时间（不是 sql 执行时间）
-        ]);
+        ];
 
-        Context::set($key, $sqlArr);
+        \Hyperf\Context\Context::set($key, $sqlArr);
 
         return $sqlArr;
     }
@@ -199,14 +202,16 @@ if (! function_exists('queue_push')) {
     /**
      * 将任务投递到异步队列中
      *
-     * @param JobInterface $job
+     * @param \Hyperf\AsyncQueue\JobInterface $job
      * @param int $delay
      * @param string $key
      * @return bool
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    function queue_push(JobInterface $job, int $delay = 0, string $key = 'default'): bool
+    function queue_push(\Hyperf\AsyncQueue\JobInterface $job, int $delay = 0, string $key = 'default'): bool
     {
-        $driver = container()->get(DriverFactory::class)->get($key);
+        $driver = container()->get(\Hyperf\AsyncQueue\Driver\DriverFactory::class)->get($key);
         return $driver->push($job, $delay);
     }
 }
@@ -220,7 +225,7 @@ if (! function_exists('event_dispatch')) {
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    function event_dispatch(object $event)
+    function event_dispatch(object $event): object
     {
         return container()->get(\Psr\EventDispatcher\EventDispatcherInterface::class)->dispatch($event);
     }
@@ -232,10 +237,12 @@ if (! function_exists('format_throwable')) {
      *
      * @param Throwable $throwable
      * @return string
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     function format_throwable(Throwable $throwable): string
     {
-        return container()->get(FormatterInterface::class)->format($throwable);
+        return container()->get(\Hyperf\ExceptionHandler\Formatter\FormatterInterface::class)->format($throwable);
     }
 }
 
@@ -245,7 +252,7 @@ if (! function_exists('microtime_float')) {
      *
      * @return float
      */
-    function microtime_float()
+    function microtime_float(): float
     {
         list($usec, $sec) = explode(" ", microtime());
         return ((float)$usec + (float)$sec);
@@ -256,9 +263,11 @@ if (! function_exists('get_client_ip')) {
     /**
      * 获取客户端 ip
      *
-     * @return mixed|string
+     * @return string
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    function get_client_ip()
+    function get_client_ip(): string
     {
         $xForwardedFor = request()->getHeaderLine('X-Forwarded-For');
         $xRealIp = request()->getHeaderLine('X-Real-IP');
@@ -273,10 +282,12 @@ if (! function_exists('get_current_action')) {
      * 获取当前请求的控制器和方法
      *
      * @return array
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     function get_current_action(): array
     {
-        $obj = request()->getAttribute(Dispatched::class);
+        $obj = request()->getAttribute(\Hyperf\HttpServer\Router\Dispatched::class);
 
         if (property_exists($obj, 'handler')
             && isset($obj->handler)
@@ -313,17 +324,18 @@ if (! function_exists('route_original')) {
     /**
      * 获取路由地址
      *
-     * @param bool $withParams 是否需要携带参数
+     * @param bool $withParams 是否需要补充参数
      * @return string
-     * @throws Exception
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     function route_original(bool $withParams = false): string
     {
-        $obj = request()->getAttribute(Dispatched::class);
+        $obj = request()->getAttribute(\Hyperf\HttpServer\Router\Dispatched::class);
 
-        if (!property_exists($obj, 'handler')
-            || !isset($obj->handler)
-            || !property_exists($obj->handler, 'route')
+        if (! property_exists($obj, 'handler')
+            || ! isset($obj->handler)
+            || ! property_exists($obj->handler, 'route')
         ) {
             throw new \Exception('The route is undefined! Please check!');
         }
@@ -391,20 +403,20 @@ if (! function_exists('set_global_init_params')) {
      * 重新设置全局初始化参数（在一次请求生命周期中替换掉 App\Middleware\InitParamsMiddleware::class 中的定义）
      *
      * @param string $key
-     * @param null $value
-     * @return mixed|null
+     * @param mixed $value
+     * @return mixed
      */
-    function set_global_init_params(string $key, $value = null)
+    function set_global_init_params(string $key, mixed $value = null): mixed
     {
         $tempValueKey = config('app.context_key.temp_value');
-        if (! Context::has($tempValueKey)) return $value;
-        $contextData = Context::get($tempValueKey, []);
+        if (! \Hyperf\Context\Context::has($tempValueKey)) return $value;
+        $contextData = \Hyperf\Context\Context::get($tempValueKey, []);
 
         $override = array_merge($contextData, [
             $key => $value
         ]);
 
-        return Context::set($tempValueKey, $override);
+        return \Hyperf\Context\Context::set($tempValueKey, $override);
     }
 }
 
@@ -413,14 +425,14 @@ if (! function_exists('get_global_init_params')) {
      * 获取初始化全局参数 （App\Middleware\InitParamsMiddleware::class 中定义）
      *
      * @param string|null $key
-     * @param null $default
-     * @return false|mixed|null
+     * @param mixed $default
+     * @return mixed
      */
-    function get_global_init_params(?string $key = '', $default = null)
+    function get_global_init_params(?string $key = '', mixed $default = null): mixed
     {
         $tempValueKey = config('app.context_key.temp_value');
-        if (! Context::has($tempValueKey)) return $default;
-        $contextData = Context::get($tempValueKey, []);
+        if (! \Hyperf\Context\Context::has($tempValueKey)) return $default;
+        $contextData = \Hyperf\Context\Context::get($tempValueKey, []);
         if (! $key) return $contextData;
         $value = $contextData[$key] ?? $default;
 
@@ -432,10 +444,10 @@ if (! function_exists('prepare_for_page')) {
     /**
      * 拼接分页数据结构
      *
-     * @param LengthAwarePaginator $obj  分页数据集
+     * @param \Hyperf\Paginator\LengthAwarePaginator $obj  分页数据集
      * @return array
      */
-    function prepare_for_page(LengthAwarePaginator $obj): array
+    function prepare_for_page(\Hyperf\Paginator\LengthAwarePaginator $obj): array
     {
         $res = [];
         $pageArr = $obj->toArray();
@@ -463,8 +475,9 @@ if (! function_exists('throttle_requests')) {
      *
      * @param string $rateLimits 在指定时间内允许的最大请求次数,单位时间（s）
      * @param string $prefix 计数器缓存 key 前缀
+     * @return void
      */
-    function throttle_requests(string $rateLimits = '30,60', string $prefix = 'hyperf_biz_web_api:throttle')
+    function throttle_requests(string $rateLimits = '30,60', string $prefix = 'hyperf_biz_web_api:throttle'): void
     {
         $rates = array_map('intval', array_filter(explode(',', $rateLimits)));
         list($maxAttempts, $decaySeconds) = $rates;
@@ -478,12 +491,12 @@ if (! function_exists('aes_cbc_encrypt')) {
     /**
      * aes cbc 加密
      *
-     * @param $plaintext 明文
+     * @param mixed $plaintext 明文
      * @param string $key 加密 key
      * @param string $iv 向量
      * @return string
      */
-    function aes_cbc_encrypt($plaintext, string $key, string $iv = ''): string
+    function aes_cbc_encrypt(mixed $plaintext, string $key, string $iv = ''): string
     {
         if ($iv == '') $iv = mb_substr($key, 0, 16);
         $jsonPlaintext = json_encode($plaintext, 256);
@@ -553,10 +566,12 @@ if (! function_exists('lock_spin')) {
      * @param int $counter 尝试触发多少次直至回调函数处理完成
      * @param int $expireTime 缓存时间（实际上是赌定回调函数处理多少秒内可以处理完成）
      * @param int $loopWaitTime 加锁等待时长
-     * @return null
+     * @return mixed
      * @throws RedisException
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    function lock_spin(callable $callBack, string $key, int $counter = 10, int $expireTime = 5, int $loopWaitTime = 500000)
+    function lock_spin(callable $callBack, string $key, int $counter = 10, int $expireTime = 5, int $loopWaitTime = 500000): mixed
     {
         $result = null;
         while ($counter > 0) {

@@ -18,24 +18,21 @@ use Hyperf\Utils\Str;
 class FileSystemHelper
 {
 
-    const STORAGE_LOCAL = 'local';
-    const STORAGE_FTP = 'ftp';
-    const STORAGE_MEMORY = 'memory';
-    const STORAGE_S3 = 's3';
-    const STORAGE_MINIO = 'minio';
-    const STORAGE_OSS = 'oss';
-    const STORAGE_QINIU = 'qiniu';
-    const STORAGE_COS = 'cos';
+    public const STORAGE_LOCAL = 'local';
+    public const STORAGE_FTP = 'ftp';
+    public const STORAGE_MEMORY = 'memory';
+    public const STORAGE_S3 = 's3';
+    public const STORAGE_MINIO = 'minio';
+    public const STORAGE_OSS = 'oss';
+    public const STORAGE_QINIU = 'qiniu';
+    public const STORAGE_COS = 'cos';
 
-    protected $request;
-    protected $filesystemFactory;
 
     public function __construct(
-        RequestInterface  $request,
-        FilesystemFactory $filesystemFactory
-    ) {
-        $this->request = $request;
-        $this->filesystemFactory = $filesystemFactory;
+        protected RequestInterface  $request,
+        protected FilesystemFactory $filesystemFactory
+    )
+    {
     }
 
     /**
@@ -88,12 +85,12 @@ class FileSystemHelper
         return $this->filesystemFactory->get($storage)->fileExists($location);
     }
 
-    public function write(string $location, string $contents, array $config = [], string $storage = self::STORAGE_OSS)
+    public function write(string $location, string $contents, array $config = [], string $storage = self::STORAGE_OSS): void
     {
         $this->filesystemFactory->get($storage)->write($location, $contents, $config);
     }
 
-    public function writeStream(string $location, $contents, array $config = [], string $storage = self::STORAGE_OSS)
+    public function writeStream(string $location, $contents, array $config = [], string $storage = self::STORAGE_OSS): void
     {
         $this->filesystemFactory->get($storage)->writeStream($location, $contents, $config);
     }
@@ -103,7 +100,7 @@ class FileSystemHelper
         return $this->filesystemFactory->get($storage)->read($location);
     }
 
-    public function readStream(string $location, string $storage = self::STORAGE_OSS)
+    public function readStream(string $location, string $storage = self::STORAGE_OSS): mixed
     {
         return $this->filesystemFactory->get($storage)->readStream($location);
     }
@@ -114,7 +111,7 @@ class FileSystemHelper
      * @return void
      * @throws \League\Flysystem\FilesystemException
      */
-    public function delete(string $location, string $storage = self::STORAGE_OSS)
+    public function delete(string $location, string $storage = self::STORAGE_OSS): void
     {
         $this->filesystemFactory->get($storage)->delete($location);
     }
@@ -125,12 +122,12 @@ class FileSystemHelper
      * @return void
      * @throws \League\Flysystem\FilesystemException
      */
-    public function deleteDirectory(string $location, string $storage = self::STORAGE_OSS)
+    public function deleteDirectory(string $location, string $storage = self::STORAGE_OSS): void
     {
         $this->filesystemFactory->get($storage)->deleteDirectory($location);
     }
 
-    public function createDirectory(string $location, array $config = [], string $storage = self::STORAGE_OSS)
+    public function createDirectory(string $location, array $config = [], string $storage = self::STORAGE_OSS): void
     {
         $this->filesystemFactory->get($storage)->createDirectory($location, $config);
     }
@@ -147,7 +144,7 @@ class FileSystemHelper
         return $this->filesystemFactory->get($storage)->listContents($location, $deep);
     }
 
-    public function move(string $source, string $destination, array $config = [], string $storage = self::STORAGE_OSS)
+    public function move(string $source, string $destination, array $config = [], string $storage = self::STORAGE_OSS): void
     {
         $this->filesystemFactory->get($storage)->move($source, $destination, $config);
     }
@@ -160,7 +157,7 @@ class FileSystemHelper
      * @return void
      * @throws \League\Flysystem\FilesystemException
      */
-    public function copy(string $source, string $destination, array $config = [], string $storage = self::STORAGE_OSS)
+    public function copy(string $source, string $destination, array $config = [], string $storage = self::STORAGE_OSS): void
     {
         $this->filesystemFactory->get($storage)->copy($source, $destination, $config);
     }
