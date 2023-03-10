@@ -1,6 +1,6 @@
 #!/bin/bash
 #Author: Alex
-#server manager script based on hyperf 2.2.0
+#server manager script based on hyperf 3.0 php framework.
 
 base_path=$(cd `dirname $0`; pwd)
 server_file="${base_path}/bin/hyperf.php"
