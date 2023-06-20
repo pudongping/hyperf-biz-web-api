@@ -15,7 +15,7 @@ return [
         'redis' => [
             'pool' => 'default',
         ],
-        'channel' => '{queue}',
+        'channel' => env('ASYNC_QUEUE_DEFAULT_CHANNEL', 'queue_' . env('APP_NAME', '{queue}')),
         'timeout' => 2,
         'retry_seconds' => 5,
         'handle_timeout' => 10,

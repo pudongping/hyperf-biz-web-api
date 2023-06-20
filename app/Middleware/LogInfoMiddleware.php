@@ -33,11 +33,13 @@ class LogInfoMiddleware implements MiddlewareInterface
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        $requestData = $this->getRequestInfo($request);
-        logger()->info('Request ========> ' . (string)$this->logFormat($requestData));
+        if (config('app.log_request_only')) {
+            logger()->info('Request ========> ' . $this->logFormat($this->getRequestInfo($request)));
+        }
         $response = $handler->handle($request);
-        $responseData = $this->getResponseInfo($response);
-        logger()->info('Response ========> ' . (string)$this->logFormat($responseData));
+        if (config('app.log_response_only')) {
+            logger()->info('Response ========> ' . $this->logFormat($this->getResponseInfo($response)));
+        }
         return $response;
     }
 
