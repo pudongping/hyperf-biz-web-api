@@ -15,6 +15,7 @@ use Hyperf\Validation\Contract\ValidatorFactoryInterface;
 use Hyperf\Di\Annotation\Inject;
 use App\Constants\ErrorCode;
 use App\Exception\ApiException;
+use function Hyperf\Support\make;
 
 trait ValidateTrait
 {

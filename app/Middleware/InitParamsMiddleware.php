@@ -11,6 +11,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Hyperf\Context\Context;
 use Hyperf\DbConnection\Db;
+use function Hyperf\Config\config;
 
 class InitParamsMiddleware implements MiddlewareInterface
 {

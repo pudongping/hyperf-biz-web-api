@@ -10,6 +10,7 @@ use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Hyperf\HttpServer\Contract\RequestInterface;
+use function Hyperf\Config\config;
 
 class LogInfoMiddleware implements MiddlewareInterface
 {
@@ -17,8 +18,7 @@ class LogInfoMiddleware implements MiddlewareInterface
     public function __construct(
         protected ContainerInterface $container,
         protected RequestInterface   $request
-    )
-    {
+    ) {
     }
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
