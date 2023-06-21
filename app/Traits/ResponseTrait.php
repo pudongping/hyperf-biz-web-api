@@ -17,8 +17,9 @@ use Hyperf\DbConnection\Db;
 use Hyperf\Paginator\LengthAwarePaginator;
 use Hyperf\Database\Model\Collection;
 use Hyperf\Database\Model\Model;
-use Hyperf\Utils\Collection as BaseCollection;
+use Hyperf\Collection\Collection as BaseCollection;
 use Hyperf\Context\Context;
+use function Hyperf\Config\config;
 
 trait ResponseTrait
 {

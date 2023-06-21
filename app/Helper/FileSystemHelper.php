@@ -13,7 +13,7 @@ namespace App\Helper;
 
 use Hyperf\HttpServer\Contract\RequestInterface;
 use Hyperf\Filesystem\FilesystemFactory;
-use Hyperf\Utils\Str;
+use Hyperf\Stringable\Str;
 
 class FileSystemHelper
 {
@@ -31,8 +31,7 @@ class FileSystemHelper
     public function __construct(
         protected RequestInterface  $request,
         protected FilesystemFactory $filesystemFactory
-    )
-    {
+    ) {
     }
 
     /**
@@ -51,8 +50,8 @@ class FileSystemHelper
         string $folder = '/uploader/',
         string $storage = self::STORAGE_OSS,
         bool   $isRandomFileName = true,
-        string $formDataKey = 'file'): string
-    {
+        string $formDataKey = 'file'
+    ): string {
         // 上传过程
         $file = $this->request->file($formDataKey);
         $stream = fopen($file->getRealPath(), 'r+');

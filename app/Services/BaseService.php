@@ -11,6 +11,8 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use function Hyperf\Config\config;
+
 abstract class BaseService
 {
 

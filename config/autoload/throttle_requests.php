@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use function Hyperf\Support\env;
+
 return [
     'storage' => Pudongping\HyperfThrottleRequests\Storage\RedisStorage::class,
     'maxAttempts' => 60,  // 在指定时间内允许的最大请求次数

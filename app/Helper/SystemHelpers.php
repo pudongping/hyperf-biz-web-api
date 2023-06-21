@@ -9,6 +9,8 @@
  */
 declare(strict_types=1);
 
+use function Hyperf\Config\config;
+
 if (! function_exists('container')) {
     /**
      * 获取容器对象
@@ -20,7 +22,7 @@ if (! function_exists('container')) {
      */
     function container(string $id = ''): mixed
     {
-        $container = \Hyperf\Utils\ApplicationContext::getContainer();
+        $container = \Hyperf\Context\ApplicationContext::getContainer();
 
         if ($id) return $container->get($id);
 
@@ -205,7 +207,7 @@ if (! function_exists('simple_db_debug_sql')) {
      */
     function simple_db_debug_sql(string $sql, array $bindings = [], float $executeTime = 0.0): array
     {
-        $executeSql = \Hyperf\Utils\Str::replaceArray('?', $bindings, $sql);
+        $executeSql = \Hyperf\Stringable\Str::replaceArray('?', $bindings, $sql);
         logger()->info(sprintf('simple db sql debug ==> time：%ss ==> %s', $executeTime, $executeSql));
 
         $key = config('app.context_key.simple_sql');

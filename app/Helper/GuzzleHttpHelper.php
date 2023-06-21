@@ -13,6 +13,7 @@ declare(strict_types=1);
 namespace App\Helper;
 
 use Hyperf\Guzzle\ClientFactory;
+use function Hyperf\Config\config;
 
 class GuzzleHttpHelper
 {
