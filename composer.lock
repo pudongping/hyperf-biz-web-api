@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e670ae16149736fe22d78d907caf4577",
+    "content-hash": "63388eca439b56ca41be0fbd878793f5",
     "packages": [
         {
             "name": "aliyuncs/oss-sdk-php",
@@ -4397,6 +4397,71 @@
                 "source": "https://github.com/php-fig/simple-cache/tree/master"
             },
             "time": "2017-10-23T01:57:42+00:00"
+        },
+        {
+            "name": "pudongping/hyperf-throttle-requests",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pudongping/hyperf-throttle-requests.git",
+                "reference": "a88e41e3521bd9c018027cc2803b706b6f4e3072"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pudongping/hyperf-throttle-requests/zipball/a88e41e3521bd9c018027cc2803b706b6f4e3072",
+                "reference": "a88e41e3521bd9c018027cc2803b706b6f4e3072",
+                "shasum": ""
+            },
+            "require": {
+                "hyperf/di": "~2.2.0",
+                "hyperf/http-server": "~2.2.0",
+                "hyperf/redis": "~2.2.0",
+                "hyperf/utils": "~2.2.0",
+                "nesbot/carbon": "^2.0",
+                "php": ">=7.2",
+                "psr/container": "^1.0|^2.0",
+                "psr/http-message": "^1.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.2-dev"
+                },
+                "hyperf": {
+                    "config": "Pudongping\\HyperfThrottleRequests\\ConfigProvider"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/Functions.php"
+                ],
+                "psr-4": {
+                    "Pudongping\\HyperfThrottleRequests\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "pudongping",
+                    "email": "pudongping67@gmail.com"
+                }
+            ],
+            "description": "A rate limiter implemented for Hyperf framework.",
+            "keywords": [
+                "hyperf",
+                "php",
+                "rate-limiter",
+                "swoole",
+                "throttle-requests"
+            ],
+            "support": {
+                "issues": "https://github.com/pudongping/hyperf-throttle-requests/issues",
+                "source": "https://github.com/pudongping/hyperf-throttle-requests/tree/1.0.0"
+            },
+            "time": "2023-06-20T06:09:19+00:00"
         },
         {
             "name": "ralouphie/getallheaders",

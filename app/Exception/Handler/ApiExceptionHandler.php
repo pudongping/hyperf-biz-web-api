@@ -22,6 +22,7 @@ use App\Constants\ErrorCode;
 use App\Exception\ApiException;
 use Hyperf\HttpMessage\Exception\NotFoundHttpException;
 use Hyperf\HttpMessage\Exception\MethodNotAllowedHttpException;
+use Pudongping\HyperfThrottleRequests\Exception\ThrottleRequestsException;
 
 class ApiExceptionHandler extends ExceptionHandler
 {
@@ -54,6 +55,9 @@ class ApiExceptionHandler extends ExceptionHandler
             case $throwable instanceof MethodNotAllowedHttpException:
                 $code = ErrorCode::ERR_HTTP_METHOD_NOT_ALLOWED;
                 $msg = $throwable->getMessage();
+                break;
+            case $throwable instanceof ThrottleRequestsException:
+                $code = ErrorCode::REQUEST_FREQUENTLY;
                 break;
             case $throwable instanceof ApiException:
                 $code = $throwable->getCode() ?: ErrorCode::SERVER_ERROR;

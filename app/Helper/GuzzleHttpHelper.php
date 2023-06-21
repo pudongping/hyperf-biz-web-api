@@ -40,7 +40,6 @@ class GuzzleHttpHelper
         return $this->response('GET', $url, array_merge($arr, $params));
     }
 
-
     public function post(string $url, array $params = [])
     {
         $arr = [
@@ -57,7 +56,6 @@ class GuzzleHttpHelper
         return $this->response('POST', $url, array_merge($arr, $params));
     }
 
-
     public function upload(string $url, string $filePath)
     {
         $arr = [
@@ -71,7 +69,6 @@ class GuzzleHttpHelper
 
         return $this->response('POST', $url, $arr);
     }
-
 
     public function put(string $url, array $params = [])
     {
@@ -89,7 +86,6 @@ class GuzzleHttpHelper
         return $this->response('PUT', $url, array_merge($arr, $params));
     }
 
-
     public function delete(string $url, array $params = [])
     {
         $arr = [
@@ -106,14 +102,14 @@ class GuzzleHttpHelper
         return $this->response('DELETE', $url, array_merge($arr, $params));
     }
 
-
     public function response($method, $url, $args): array
     {
-        logger()->info(sprintf("此时为 %s 请求，请求地址为 ====> %s 参数为 ====> %s", $method, $url, var_export($args, true)));
+        $enable = config('app.log_guzzle_enable');
+        $enable && logger()->info(sprintf("此时为 %s 请求，请求地址为 ====> %s 参数为 ====> %s", $method, $url, var_export($args, true)));
         $client = $this->clientFactory->create();
         $response = $client->request($method, $url, $args);
         $contents = $response->getBody()->getContents();
-        logger()->info(sprintf("请求返回的结果为  ====> %s ", var_export($contents, true)));
+        $enable && logger()->info(sprintf("请求返回的结果为  ====> %s ", var_export($contents, true)));
         return json_decode($contents, true);
     }
 
