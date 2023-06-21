@@ -27,6 +27,21 @@ return [
     'log_format_human' => env('LOG_FORMAT_HUMAN', false),
 
     /**
+     * 是否仅记录请求日志
+     */
+    'log_request_only' => env('LOG_REQUEST_ONLY', true),
+
+    /**
+     * 是否仅记录返回日志
+     */
+    'log_response_only' => env('LOG_RESPONSE_ONLY', true),
+
+    /**
+     * 是否开启 guzzle 请求日志
+     */
+    'log_guzzle_enable' => env('LOG_GUZZLE_ENABLE', true),
+
+    /**
      * 协程上下文的 key
      */
     'context_key' => [

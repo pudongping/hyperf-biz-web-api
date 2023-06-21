@@ -35,7 +35,8 @@
         "hyperf/process": "~3.0.0",
         "hyperf/redis": "~3.0.0",
         "hyperf/translation": "^3.0",
-        "hyperf/validation": "^3.0"
+        "hyperf/validation": "^3.0",
+        "pudongping/hyperf-throttle-requests": "^2.0"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.0",
