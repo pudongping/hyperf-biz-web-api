@@ -32,13 +32,14 @@ if (! function_exists('redis')) {
     /**
      * 获取 Redis 协程客户端
      *
-     * @return \Hyperf\Redis\Redis|mixed
+     * @param string $poolName 连接池名称
+     * @return mixed
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    function redis(): mixed
+    function redis(string $poolName = 'default'): mixed
     {
-        return container()->get(\Hyperf\Redis\Redis::class);
+        return container()->get(\Hyperf\Redis\RedisFactory::class)->get($poolName);
     }
 }
 
@@ -156,6 +157,29 @@ if (! function_exists('cache')) {
     }
 }
 
+if (! function_exists('cache_remember')) {
+    /**
+     * 获取并缓存
+     *
+     * @param string $key 缓存key
+     * @param int $ttl 缓存过期时间，单位：秒（s）。如果为 0 时，则表示永不过期
+     * @param callable $callBack 取不到缓存数据时，获取数据的执行闭包
+     * @return mixed
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     */
+    function cache_remember(string $key, int $ttl, callable $callBack): mixed
+    {
+        $value = cache()->get($key);
+        if (! is_null($value)) {
+            return $value;
+        }
+
+        cache()->set($key, $value = $callBack(), $ttl);
+
+        return $value;
+    }
+}
+
 if (! function_exists('simple_db')) {
     /**
      * 极简 DB
@@ -246,16 +270,42 @@ if (! function_exists('format_throwable')) {
     }
 }
 
-if (! function_exists('microtime_float')) {
+if (! function_exists('time_milliseconds')) {
     /**
-     * 当前毫秒数
+     * 毫秒
+     * 1 秒（s）= 1,000 毫秒（ms）
      *
-     * @return float
+     * @return int
      */
-    function microtime_float(): float
+    function time_milliseconds(): int
     {
-        list($usec, $sec) = explode(" ", microtime());
-        return ((float)$usec + (float)$sec);
+        return (int)round(microtime(true) * 1000);
+    }
+}
+
+if (! function_exists('time_microseconds')) {
+    /**
+     * 微秒
+     * 1 秒（s）= 1,000 毫秒（ms）= 1,000,000 微秒（µs）
+     *
+     * @return int
+     */
+    function time_microseconds(): int
+    {
+        return (int)round(microtime(true) * 1000 * 1000);
+    }
+}
+
+if (! function_exists('time_nanoseconds')) {
+    /**
+     * 纳秒
+     * 1 秒（s）= 1,000 毫秒（ms）= 1,000,000 微秒（µs）= 1,000,000,000 纳秒（ns）
+     *
+     * @return int
+     */
+    function time_nanoseconds(): int
+    {
+        return (int)hrtime(true);
     }
 }
 
@@ -269,11 +319,11 @@ if (! function_exists('get_client_ip')) {
      */
     function get_client_ip(): string
     {
-        $xForwardedFor = request()->getHeaderLine('X-Forwarded-For');
-        $xRealIp = request()->getHeaderLine('X-Real-IP');
-        $remoteAddr = request()->getServerParams()['remote_addr'];
-        $realIp = $xForwardedFor ?: $xRealIp ?: $remoteAddr ?: '127.0.0.1';
-        return $realIp;
+        $request = request();
+        return $request->getHeaderLine('X-Forwarded-For')
+            ?: $request->getHeaderLine('X-Real-IP')
+            ?: ($request->getServerParams()['remote_addr'] ?? '')
+            ?: '127.0.0.1';
     }
 }
 
@@ -467,26 +517,6 @@ if (! function_exists('prepare_for_page')) {
     }
 }
 
-if (! function_exists('throttle_requests')) {
-    /**
-     * 节流处理
-     *
-     * 默认为：60 秒内允许访问 30 次
-     *
-     * @param string $rateLimits 在指定时间内允许的最大请求次数,单位时间（s）
-     * @param string $prefix 计数器缓存 key 前缀
-     * @return void
-     */
-    function throttle_requests(string $rateLimits = '30,60', string $prefix = 'hyperf_biz_web_api:throttle'): void
-    {
-        $rates = array_map('intval', array_filter(explode(',', $rateLimits)));
-        list($maxAttempts, $decaySeconds) = $rates;
-
-        $instance = make(\App\Helper\ThrottleRequestsHelper::class);
-        call([$instance, 'handle'], [$maxAttempts, $decaySeconds, $prefix]);
-    }
-}
-
 if (! function_exists('aes_cbc_encrypt')) {
     /**
      * aes cbc 加密
@@ -576,31 +606,15 @@ if (! function_exists('lock_spin')) {
         $result = null;
         while ($counter > 0) {
             $val = microtime() . '_' . uniqid('', true);
-            $noticeLog = [
-                'params' => [
-                    'key' => $key,
-                    'val' => $val,
-                    'expire_time' => $expireTime,
-                    'loop_wait_time' => $loopWaitTime
-                ],
-                'counter' => $counter
-            ];
+            $noticeLog = compact('key', 'val', 'expireTime', 'loopWaitTime', 'counter');
             logger()->notice(__FUNCTION__ . ' ====> ', $noticeLog);
             if (redis()->set($key, $val, ['NX', 'EX' => $expireTime])) {
                 if (redis()->get($key) === $val) {
                     try {
                         $result = $callBack();
-                    } catch (\Throwable $e) {
-                        $msg = \sprintf(
-                            'An error was found executing the callback function: ' . PHP_EOL . '(%s) %s: %s' . PHP_EOL . '%s' . PHP_EOL,
-                            __FUNCTION__,
-                            get_class($e),
-                            $e->getMessage(),
-                            $e->getTraceAsString()
-                        );
-                        throw new \RuntimeException($msg, $e->getCode(), $e->getPrevious());
                     } finally {
-                        redis()->del($key);
+                        $delKeyLua = 'if redis.call("GET", KEYS[1]) == ARGV[1] then return redis.call("DEL", KEYS[1]) else return 0 end';
+                        redis()->eval($delKeyLua, [$key, $val], 1);
                         logger()->notice(__FUNCTION__ . ' delete key ====> ', $noticeLog);
                     }
                     return $result;
