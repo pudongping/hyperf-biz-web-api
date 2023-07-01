@@ -11,9 +11,9 @@ declare(strict_types=1);
  */
 return [
     'http' => [
-        \App\Middleware\CorsMiddleware::class,
-        \App\Middleware\InitParamsMiddleware::class,
-        \App\Middleware\LogInfoMiddleware::class,  // 记录客户端请求 api 时所有的参数
+        \Pudongping\HyperfKit\Middleware\CorsMiddleware::class,
+        \Pudongping\HyperfKit\Middleware\InitParamsMiddleware::class,
+        \Pudongping\HyperfKit\Middleware\LogInfoMiddleware::class,  // 记录客户端请求 api 时所有的参数
         \Hyperf\Validation\Middleware\ValidationMiddleware::class,
     ],
 ];

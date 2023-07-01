@@ -17,7 +17,7 @@ return [
             'constructor' => [
                 // 'stream' => BASE_PATH . '/runtime/logs/hyperf.log',
                 'filename' => BASE_PATH . '/runtime/logs/hyperf.log',
-                'maxFiles' => 14,  // 最多只记录 14 天前的日志
+                'maxFiles' => 7,  // 最多只记录 7 天前的日志
                 'level' => Monolog\Logger::DEBUG,
             ],
         ],
@@ -31,7 +31,7 @@ return [
         ],
         'processors' => [
             [
-                'class' => \App\Kernel\Log\AppendRequestIdProcessor::class
+                'class' => \Pudongping\HyperfKit\Kernel\Log\AppendRequestIdProcessor::class
             ],
             [
                 // @see https://github.com/Seldaek/monolog/blob/main/src/Monolog/Processor/MemoryUsageProcessor.php
