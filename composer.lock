@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "63388eca439b56ca41be0fbd878793f5",
+    "content-hash": "abd682a9cfcd770885981e2a6ccdf00c",
     "packages": [
         {
             "name": "aliyuncs/oss-sdk-php",
@@ -4399,6 +4399,86 @@
             "time": "2017-10-23T01:57:42+00:00"
         },
         {
+            "name": "pudongping/hyperf-kit",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pudongping/hyperf-kit.git",
+                "reference": "5c0ec1aee036e292dd61a5180d4dc5b9fc746dc6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pudongping/hyperf-kit/zipball/5c0ec1aee036e292dd61a5180d4dc5b9fc746dc6",
+                "reference": "5c0ec1aee036e292dd61a5180d4dc5b9fc746dc6",
+                "shasum": ""
+            },
+            "require": {
+                "hyperf/async-queue": "~2.2.0",
+                "hyperf/cache": "~2.2.0",
+                "hyperf/constants": "^2.2",
+                "hyperf/db": "^2.2",
+                "hyperf/db-connection": "~2.2.0",
+                "hyperf/filesystem": "^2.2",
+                "hyperf/flysystem-oss": "^1.2",
+                "hyperf/guzzle": "~2.2.0",
+                "hyperf/http-server": "~2.2.0",
+                "hyperf/logger": "~2.2.0",
+                "hyperf/paginator": "^2.2",
+                "hyperf/redis": "~2.2.0",
+                "hyperf/utils": "~2.2.0",
+                "hyperf/validation": "^2.2",
+                "php": ">=7.2",
+                "pudongping/hyperf-throttle-requests": "^1.0",
+                "pudongping/smart-assist": "^1.0"
+            },
+            "require-dev": {
+                "swoole/ide-helper": "^4.5"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.2-dev"
+                },
+                "hyperf": {
+                    "config": "Pudongping\\HyperfKit\\ConfigProvider"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/DBHelpers.php",
+                    "src/FrameworkHelpers.php",
+                    "src/SupportHelper.php",
+                    "src/SystemHelpers.php"
+                ],
+                "psr-4": {
+                    "Pudongping\\HyperfKit\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "pudongping",
+                    "email": "pudongping67@gmail.com"
+                }
+            ],
+            "description": "Providing utility functions for the Hyperf framework, making development easier.",
+            "keywords": [
+                "helpers",
+                "hyperf",
+                "php",
+                "tools",
+                "utils"
+            ],
+            "support": {
+                "issues": "https://github.com/pudongping/hyperf-kit/issues",
+                "source": "https://github.com/pudongping/hyperf-kit/tree/1.0.0"
+            },
+            "time": "2023-07-01T03:33:46+00:00"
+        },
+        {
             "name": "pudongping/hyperf-throttle-requests",
             "version": "1.0.0",
             "source": {
@@ -4462,6 +4542,58 @@
                 "source": "https://github.com/pudongping/hyperf-throttle-requests/tree/1.0.0"
             },
             "time": "2023-06-20T06:09:19+00:00"
+        },
+        {
+            "name": "pudongping/smart-assist",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pudongping/smart-assist.git",
+                "reference": "f53ccc73a190aacccf44c26b1821a903dfdb582e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pudongping/smart-assist/zipball/f53ccc73a190aacccf44c26b1821a903dfdb582e",
+                "reference": "f53ccc73a190aacccf44c26b1821a903dfdb582e",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "ext-mbstring": "*",
+                "ext-openssl": "*",
+                "php": ">=7.2"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.5",
+                "phpunit/phpunit": "^9.6"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Pudongping\\SmartAssist\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "pudongping",
+                    "email": "pudongping67@gmail.com"
+                }
+            ],
+            "description": "PHP utility functions.",
+            "keywords": [
+                "php",
+                "tools",
+                "utils"
+            ],
+            "support": {
+                "issues": "https://github.com/pudongping/smart-assist/issues",
+                "source": "https://github.com/pudongping/smart-assist/tree/1.0.0"
+            },
+            "time": "2023-06-29T10:21:49+00:00"
         },
         {
             "name": "ralouphie/getallheaders",

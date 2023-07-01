@@ -23,8 +23,6 @@
         "hyperf/db": "^2.2",
         "hyperf/db-connection": "~2.2.0",
         "hyperf/elasticsearch": "~2.2.0",
-        "hyperf/filesystem": "^2.2",
-        "hyperf/flysystem-oss": "^1.2",
         "hyperf/framework": "~2.2.0",
         "hyperf/guzzle": "~2.2.0",
         "hyperf/http-server": "~2.2.0",
@@ -35,6 +33,7 @@
         "hyperf/redis": "~2.2.0",
         "hyperf/translation": "^2.2",
         "hyperf/validation": "^2.2",
+        "pudongping/hyperf-kit": "^1.0",
         "pudongping/hyperf-throttle-requests": "^1.0"
     },
     "require-dev": {
@@ -60,9 +59,7 @@
             "App\\": "app/"
         },
         "files": [
-            "app/Helper/SystemHelpers.php",
-            "app/Helper/BusinessHelpers.php",
-            "app/Helper/DBHelpers.php"
+            "app/Helper/BusinessHelpers.php"
         ]
     },
     "autoload-dev": {
