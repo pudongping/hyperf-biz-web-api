@@ -8,6 +8,11 @@
  */
 declare(strict_types=1);
 
+<<<<<<< HEAD
+=======
+use function Hyperf\Support\env;
+
+>>>>>>> 框架轻量化（基于 hyperf 3.0）
 return [
 
     /**

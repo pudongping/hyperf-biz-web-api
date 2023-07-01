@@ -4,7 +4,11 @@
  *
  * Created by PhpStorm
  * User: Alex
+<<<<<<< HEAD
  * Date: 2023-07-01 12:35
+=======
+ * Date: 2023-07-01 23:45
+>>>>>>> 框架轻量化（基于 hyperf 3.0）
  */
 declare(strict_types=1);
 
@@ -13,14 +17,22 @@ namespace App\Controller;
 use Hyperf\HttpServer\Annotation\AutoController;
 use Pudongping\HyperfKit\Exception\ApiException;
 use App\Constants\ErrorCode;
+<<<<<<< HEAD
 use Hyperf\Utils\Context;
+=======
+use Hyperf\Context\Context;
+>>>>>>> 框架轻量化（基于 hyperf 3.0）
 use Pudongping\SmartAssist\TimeHelper;
 use Psr\Http\Message\ServerRequestInterface;
 use Pudongping\HyperfKit\Kernel\Log\AppendRequestIdProcessor;
 
+<<<<<<< HEAD
 /**
  * @AutoController()
  */
+=======
+#[AutoController]
+>>>>>>> 框架轻量化（基于 hyperf 3.0）
 class DemoController extends AbstractController
 {
 
