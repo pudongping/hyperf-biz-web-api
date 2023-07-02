@@ -4,11 +4,7 @@
  *
  * Created by PhpStorm
  * User: Alex
-<<<<<<< HEAD
- * Date: 2023-07-01 12:51
-=======
  * Date: 2023-07-02 00:03
->>>>>>> 框架轻量化（基于 hyperf 3.0）
  */
 declare(strict_types=1);
 
