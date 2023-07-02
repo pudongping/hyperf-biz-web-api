@@ -51,5 +51,19 @@ php bin/hyperf.php start
 
 ## 代码规范
 
-1. **必须**遵循 [PSR-4](https://learnku.com/docs/psr/psr-4-autoloader-meta/1610) 和 [PSR-12](https://learnku.com/docs/psr/psr-12-extended-coding-style-guide/5789) 规范
-2. **建议**遵循 ***SOLID*** 编码准则
+1. **必须** 遵循 [PSR-4](https://learnku.com/docs/psr/psr-4-autoloader-meta/1610) 和 [PSR-12](https://learnku.com/docs/psr/psr-12-extended-coding-style-guide/5789) 规范
+2. **建议** 遵循 ***SOLID*** 编码准则
+3. 所有注释、文档书写 **建议** 遵循 [中文文案排版指北](https://github.com/sparanoid/chinese-copywriting-guidelines)
+
+## 关于分支及标签
+
+- [CHANGELOG](./CHANGELOG.md)
+
+## 其他
+
+本项目许多核心功能均来自 [pudongping/hyperf-kit](https://github.com/pudongping/hyperf-kit) 扩展包。
+
+以下文件可能在你项目中用不上，建议拉取代码之后进行删除。
+
+- `app/Controller/DemoController.php` 
+- `test/Cases/DemoTest.php`
