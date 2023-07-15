@@ -4996,16 +4996,16 @@
         },
         {
             "name": "pudongping/hyperf-kit",
-            "version": "2.0.0",
+            "version": "2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pudongping/hyperf-kit.git",
-                "reference": "07fab6e37629dbb698228438a1e5135bdc6ca441"
+                "reference": "1bd59cbeb7cedb1241bf9cf6b7ee994dac5b3907"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pudongping/hyperf-kit/zipball/07fab6e37629dbb698228438a1e5135bdc6ca441",
-                "reference": "07fab6e37629dbb698228438a1e5135bdc6ca441",
+                "url": "https://api.github.com/repos/pudongping/hyperf-kit/zipball/1bd59cbeb7cedb1241bf9cf6b7ee994dac5b3907",
+                "reference": "1bd59cbeb7cedb1241bf9cf6b7ee994dac5b3907",
                 "shasum": ""
             },
             "require": {
@@ -5070,9 +5070,9 @@
             ],
             "support": {
                 "issues": "https://github.com/pudongping/hyperf-kit/issues",
-                "source": "https://github.com/pudongping/hyperf-kit/tree/2.0.0"
+                "source": "https://github.com/pudongping/hyperf-kit/tree/2.1.0"
             },
-            "time": "2023-07-01T16:15:41+00:00"
+            "time": "2023-07-15T11:00:31+00:00"
         },
         {
             "name": "pudongping/hyperf-throttle-requests",
@@ -5141,16 +5141,16 @@
         },
         {
             "name": "pudongping/smart-assist",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pudongping/smart-assist.git",
-                "reference": "f53ccc73a190aacccf44c26b1821a903dfdb582e"
+                "reference": "83ec7a22ed11695c057e27e2040f8c0aec7ee22a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pudongping/smart-assist/zipball/f53ccc73a190aacccf44c26b1821a903dfdb582e",
-                "reference": "f53ccc73a190aacccf44c26b1821a903dfdb582e",
+                "url": "https://api.github.com/repos/pudongping/smart-assist/zipball/83ec7a22ed11695c057e27e2040f8c0aec7ee22a",
+                "reference": "83ec7a22ed11695c057e27e2040f8c0aec7ee22a",
                 "shasum": ""
             },
             "require": {
@@ -5187,9 +5187,9 @@
             ],
             "support": {
                 "issues": "https://github.com/pudongping/smart-assist/issues",
-                "source": "https://github.com/pudongping/smart-assist/tree/1.0.0"
+                "source": "https://github.com/pudongping/smart-assist/tree/1.0.1"
             },
-            "time": "2023-06-29T10:21:49+00:00"
+            "time": "2023-07-15T10:23:11+00:00"
         },
         {
             "name": "ralouphie/getallheaders",
