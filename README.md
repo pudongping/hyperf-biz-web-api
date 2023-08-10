@@ -15,6 +15,12 @@
 - Redis PHP 扩展 （如需要使用到 Redis 客户端）
 - Protobuf PHP 扩展 （如需要使用到 gRPC 服务端或客户端）
 
+## 创建项目
+
+```shell
+composer create-project pudongping/hyperf-biz-web-api example-app
+```
+
 ## docker 下运行
 
 ```shell
