@@ -18,7 +18,13 @@
 ## 创建项目
 
 ```shell
+# default latest version
 composer create-project pudongping/hyperf-biz-web-api example-app
+
+# hyperf 2.2 and PHP >= 7.4
+composer create-project pudongping/hyperf-biz-web-api:~v2.2.1 example-app
+# hyperf 3.0 and PHP >= 8.0 and <= 8.1
+composer create-project pudongping/hyperf-biz-web-api:~v3.0.1 example-app
 ```
 
 ## docker 下运行
