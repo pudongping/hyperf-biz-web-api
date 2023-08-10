@@ -19,20 +19,24 @@
 
 ```shell
 # default latest version
-composer create-project pudongping/hyperf-biz-web-api example-app
+composer create-project pudongping/hyperf-biz-web-api ~/hyperf-project/example-app
 
 # hyperf 2.2 and PHP >= 7.4
-composer create-project pudongping/hyperf-biz-web-api:~v2.2.1 example-app
+composer create-project pudongping/hyperf-biz-web-api:~v2.2.1 ~/hyperf-project/example-app
 # hyperf 3.0 and PHP >= 8.0 and <= 8.1
-composer create-project pudongping/hyperf-biz-web-api:~v3.0.1 example-app
+composer create-project pudongping/hyperf-biz-web-api:~v3.0.1 ~/hyperf-project/example-app
 ```
 
 ## docker 下运行
 
 ```shell
 
+# 新建网络
+docker network create alex-network
+
+# 假设项目安装在 `~/hyperf-project/example-app`
 docker run --name hyperf-project \
--v /Users/pudongping/codes/hyperf-project:/hyperf-project \
+-v ~/hyperf-project:/hyperf-project \
 --net=alex-network \
 -p 9510-9520:9510-9520 -it \
 --privileged -u root \
@@ -48,8 +52,13 @@ composer config -g repo.packagist composer https://mirrors.aliyun.com/composer
 
 ```shell
 
-cd path/to/install
+# 进入 docker 容器
+docker exec -it hyperf-project bash
 
+# 进入到项目目录
+cd /hyperf-project/example-app
+
+# 执行项目启动命令
 php bin/hyperf.php start
 
 ```
