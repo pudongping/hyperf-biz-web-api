@@ -8,6 +8,8 @@ runtime/
 vendor/
 .phpintel/
 .env
+.env.backup
+.env.production
 .DS_Store
 .phpunit*
 *.cache

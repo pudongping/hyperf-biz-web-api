@@ -15,7 +15,10 @@ use Swoole\Constant;
 use function Hyperf\Support\env;
 
 return [
-    'mode' => SWOOLE_PROCESS,
+    // https://wiki.swoole.com/#/learn?id=server%e7%9a%84%e4%b8%a4%e7%a7%8d%e8%bf%90%e8%a1%8c%e6%a8%a1%e5%bc%8f%e4%bb%8b%e7%bb%8d
+    // 'mode' => SWOOLE_PROCESS,
+    'mode' => SWOOLE_BASE,
+    'type' => Hyperf\Server\CoroutineServer::class, // 开启协程风格
     'servers' => [
         [
             'name' => 'http',

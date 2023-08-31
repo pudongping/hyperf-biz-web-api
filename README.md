@@ -1,4 +1,15 @@
-# 介绍
+<h1 align="center">hyperf-biz-web-api</h1>
+
+<p align="center">
+
+[![Latest Stable Version](https://poser.pugx.org/pudongping/hyperf-biz-web-api/v/stable.svg)](https://packagist.org/packages/pudongping/hyperf-biz-web-api)
+[![Total Downloads](https://poser.pugx.org/pudongping/hyperf-biz-web-api/downloads.svg)](https://packagist.org/packages/pudongping/hyperf-biz-web-api)
+[![Latest Unstable Version](https://poser.pugx.org/pudongping/hyperf-biz-web-api/v/unstable.svg)](https://packagist.org/packages/pudongping/hyperf-biz-web-api)
+[![Minimum PHP Version](http://img.shields.io/badge/php-%3E%3D%208.0-8892BF.svg)](https://php.net/)
+[![Packagist](https://img.shields.io/packagist/v/pudongping/hyperf-biz-web-api.svg)](https://github.com/pudongping/hyperf-biz-web-api)
+[![License](https://poser.pugx.org/pudongping/hyperf-biz-web-api/license)](https://packagist.org/packages/pudongping/hyperf-biz-web-api)
+
+</p>
 
 本项目采用 [hyperf 3.0](https://hyperf.wiki/3.0/#/README) 框架。
 
@@ -76,7 +87,20 @@ php bin/hyperf.php start
 2. **建议** 遵循 ***SOLID*** 编码准则
 3. 所有注释、文档书写 **建议** 遵循 [中文文案排版指北](https://github.com/sparanoid/chinese-copywriting-guidelines)
 
-## 关于分支及标签
+## 分支或者标签
+
+### 分支
+
+- **2.2** 和 **2.2.1** ： For hyperf 2.2 （推荐使用 2.2.1 branch）
+- **3.0** 和 **3.0.1** ： For hyperf 3.0 （推荐使用 3.0.1 branch）
+
+### 标签
+
+- **1.x:** For hyperf 2.2 （没有 bug 的情况下，不再更新）
+- **2.x:** For hyperf 2.2 （持续更新）
+- **3.x:** For hyperf 3.0 （持续更新）
+
+### 关于分支和标签，可详见
 
 - [CHANGELOG](./CHANGELOG.md)
 

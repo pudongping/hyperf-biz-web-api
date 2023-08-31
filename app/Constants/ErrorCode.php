@@ -18,10 +18,4 @@ class ErrorCode extends HyperfKitErrorCode
      */
     public const SUCCESS = 0;
 
-    /**
-     * @Message("登录已过期，请重新登录")
-     */
-    public const ERR_HTTP_UNAUTHORIZED = 1001;  // 因自身项目当初设定的就为 1001，因此这里默认为 1001，新项目可自定义为 401
-    // public const ERR_HTTP_UNAUTHORIZED = 401;
-
 }
