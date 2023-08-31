@@ -1,5 +1,5 @@
 {
-    "name": "hyperf/hyperf-skeleton",
+    "name": "hyperf/hyperf-biz-web-api",
     "type": "project",
     "keywords": [
         "php",
@@ -7,10 +7,12 @@
         "framework",
         "hyperf",
         "microservice",
-        "middleware"
+        "middleware",
+        "skeleton",
+        "sample"
     ],
-    "description": "A coroutine framework that focuses on hyperspeed and flexible, specifically use for build microservices and middlewares.",
-    "license": "Apache-2.0",
+    "description": "Business web api skeleton based on hyperf framework.",
+    "license": "MIT",
     "require": {
         "php": ">=7.3",
         "hyperf/async-queue": "~2.2.0",
@@ -33,8 +35,10 @@
         "hyperf/redis": "~2.2.0",
         "hyperf/translation": "^2.2",
         "hyperf/validation": "^2.2",
+        "pudongping/hyperf-alarm-clock": "^1.0",
         "pudongping/hyperf-kit": "^1.0",
-        "pudongping/hyperf-throttle-requests": "^1.0"
+        "pudongping/hyperf-throttle-requests": "^1.0",
+        "pudongping/hyperf-wise-locksmith": "^1.0"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.0",

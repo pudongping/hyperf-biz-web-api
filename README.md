@@ -1,4 +1,15 @@
-# 介绍
+<h1 align="center">hyperf-biz-web-api</h1>
+
+<p align="center">
+
+[![Latest Stable Version](https://poser.pugx.org/pudongping/hyperf-biz-web-api/v/stable.svg)](https://packagist.org/packages/pudongping/hyperf-biz-web-api)
+[![Total Downloads](https://poser.pugx.org/pudongping/hyperf-biz-web-api/downloads.svg)](https://packagist.org/packages/pudongping/hyperf-biz-web-api)
+[![Latest Unstable Version](https://poser.pugx.org/pudongping/hyperf-biz-web-api/v/unstable.svg)](https://packagist.org/packages/pudongping/hyperf-biz-web-api)
+[![Minimum PHP Version](http://img.shields.io/badge/php-%3E%3D%207.4-8892BF.svg)](https://php.net/)
+[![Packagist](https://img.shields.io/packagist/v/pudongping/hyperf-biz-web-api.svg)](https://github.com/pudongping/hyperf-biz-web-api)
+[![License](https://poser.pugx.org/pudongping/hyperf-biz-web-api/license)](https://packagist.org/packages/pudongping/hyperf-biz-web-api)
+
+</p>
 
 本项目采用 [hyperf 2.2](https://hyperf.wiki/2.2/#/README) 框架。
 
@@ -15,14 +26,30 @@
 - Redis PHP 扩展 （如需要使用到 Redis 客户端）
 - Protobuf PHP 扩展 （如需要使用到 gRPC 服务端或客户端）
 
+## 创建项目
+
+```shell
+# default latest version
+composer create-project pudongping/hyperf-biz-web-api ~/hyperf-project/example-app
+
+# hyperf 2.2 and PHP >= 7.4
+composer create-project pudongping/hyperf-biz-web-api:~v2.2.1 ~/hyperf-project/example-app
+# hyperf 3.0 and PHP >= 8.0 and <= 8.1
+composer create-project pudongping/hyperf-biz-web-api:~v3.0.1 ~/hyperf-project/example-app
+```
+
 ## docker 下运行
 
 ```shell
 
+# 新建网络
+docker network create alex-network
+
+# 假设项目安装在 `~/hyperf-project/example-app`
 docker run --name hyperf-project \
--v /Users/pudongping/codes/hyperf-project:/hyperf-project \
--p 9510:9510 \
--p 9511:9511 -it \
+-v ~/hyperf-project:/hyperf-project \
+--net=alex-network \
+-p 9510-9520:9510-9520 -it \
 --privileged -u root \
 --entrypoint /bin/sh \
 hyperf/hyperf:7.4-alpine-v3.11-swoole
@@ -36,8 +63,13 @@ composer config -g repo.packagist composer https://mirrors.aliyun.com/composer
 
 ```shell
 
-cd path/to/install
+# 进入 docker 容器
+docker exec -it hyperf-project bash
 
+# 进入到项目目录
+cd /hyperf-project/example-app
+
+# 执行项目启动命令
 php bin/hyperf.php start
 
 ```
@@ -52,4 +84,31 @@ php bin/hyperf.php start
 ## 代码规范
 
 1. **必须**遵循 [PSR-4](https://learnku.com/docs/psr/psr-4-autoloader-meta/1610) 和 [PSR-12](https://learnku.com/docs/psr/psr-12-extended-coding-style-guide/5789) 规范
-2. **建议**遵循 SOLID 编码准则
+2. **建议**遵循 ***SOLID*** 编码准则
+3. 所有注释、文档书写 **建议** 遵循 [中文文案排版指北](https://github.com/sparanoid/chinese-copywriting-guidelines)
+
+## 分支或者标签
+
+### 分支
+
+- **2.2** 和 **2.2.1** ： For hyperf 2.2 （推荐使用 2.2.1 branch）
+- **3.0** 和 **3.0.1** ： For hyperf 3.0 （推荐使用 3.0.1 branch）
+
+### 标签
+
+- **1.x:** For hyperf 2.2 （没有 bug 的情况下，不再更新）
+- **2.x:** For hyperf 2.2 （持续更新）
+- **3.x:** For hyperf 3.0 （持续更新）
+
+### 关于分支和标签，可详见
+
+- [CHANGELOG](./CHANGELOG.md)
+
+## 其他
+
+本项目许多核心功能均来自 [pudongping/hyperf-kit](https://github.com/pudongping/hyperf-kit) 扩展包。
+
+以下文件可能在你项目中用不上，建议拉取代码之后进行删除。
+
+- `app/Controller/DemoController.php`
+- `test/Cases/DemoTest.php`
