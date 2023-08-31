@@ -42,6 +42,18 @@ return [
          * 是否开启 guzzle 请求日志
          */
         'guzzle_enable' => env('LOG_GUZZLE_ENABLE', true),
+
+        /**
+         * 系统发生异常时，是否记录日志
+         */
+        'exception' => env('LOG_EXCEPTION', true),
+
+        /**
+         * 代码执行耗时时间超过多少时，请求返回日志记录由 info 级别改为 warning 级别
+         * 单位：秒
+         * 默认值为：5s
+         */
+        'code_run_cost_timeout' => env('LOG_CODE_RUN_COST_TIMEOUT', 5),
     ],
 
     /**

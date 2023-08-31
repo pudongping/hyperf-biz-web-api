@@ -11,6 +11,7 @@ declare(strict_types=1);
  */
 return [
     'http' => [
+        \Pudongping\HyperfAlarmClock\AlarmClockMiddleware::class,
         \Pudongping\HyperfKit\Middleware\CorsMiddleware::class,
         \Pudongping\HyperfKit\Middleware\InitParamsMiddleware::class,
         \Pudongping\HyperfKit\Middleware\LogInfoMiddleware::class,  // 记录客户端请求 api 时所有的参数
